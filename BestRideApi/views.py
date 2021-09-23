@@ -2,6 +2,7 @@ import logging
 
 from botocore.exceptions import ClientError
 from django.http import JsonResponse
+from rest_framework.reverse import reverse
 from rest_framework import status, generics
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
@@ -504,3 +505,13 @@ class Travels(generics.RetrieveDestroyAPIView):
             travel_result = TravelSerializer(travel)
             return Response(travel_result.data, status=201)
         return Response(travel_serializer.errors, status=400)
+
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    """
+    API for Best Ride App
+    """
+    return Response({
+        'Users': reverse('users', request=request, format=format),
+    })
