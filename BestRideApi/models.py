@@ -19,7 +19,6 @@ class Travel(models.Model):
     driver_id = models.ForeignKey('User', models.DO_NOTHING, db_column='driver_id',related_name="driverID")
 
     class Meta:
-        managed = True
         db_table = 'Travel'
 
 class Payment(models.Model):
@@ -27,7 +26,6 @@ class Payment(models.Model):
     modo_pagamento = models.CharField(max_length=45)
 
     class Meta:
-        managed = True
         db_table = "Payment"
 
 
@@ -39,7 +37,6 @@ class TravelSchedule(models.Model):
     road_map_id = models.ForeignKey('RoadMap', models.DO_NOTHING, db_column='road_map_id')
 
     class Meta:
-        managed = True
         db_table = 'TravelSchedule'
 
 
@@ -50,7 +47,6 @@ class PointInterest(models.Model):
     image = models.CharField(max_length=322, blank=True, null=True)
 
     class Meta:
-        managed = True
         db_table = 'Point_Interest'
 
 
@@ -60,7 +56,6 @@ class User(models.Model):
     image = models.CharField(max_length=4000, blank=True, null=True)
 
     class Meta:
-        managed = True
         db_table = 'User'
 
 
@@ -68,7 +63,6 @@ class City(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
-        managed = True
         db_table = 'city'
 
 
@@ -77,7 +71,6 @@ class ItinearyRoute(models.Model):
     road_map = models.ForeignKey('RoadMap', models.DO_NOTHING)
 
     class Meta:
-        managed = True
         db_table = 'itineary_route'
         unique_together = (('id', 'interest_points', 'road_map'),)
 
@@ -88,7 +81,6 @@ class ItinearyRouteInterestPoints(models.Model):
     pointinterest_id = models.IntegerField()
 
     class Meta:
-        managed = True
         db_table = 'itineary_route_interest_points'
 
 
@@ -103,7 +95,6 @@ class RoadMap(models.Model):
     city_id = models.OneToOneField(City, models.DO_NOTHING, db_column='city_id')
 
     class Meta:
-        managed = True
         db_table = 'road_map'
 
 
@@ -112,7 +103,6 @@ class RoadVehicle(models.Model):
     vehicle = models.ForeignKey('Vehicle', models.DO_NOTHING, db_column='vehicle')
 
     class Meta:
-        managed = True
         db_table = 'road_vehicle'
         unique_together = (('road_map', 'vehicle'),)
 
@@ -122,7 +112,6 @@ class Vehicle(models.Model):
     max_cap = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
-        managed = True
         db_table = 'vehicle'
 
 class Comments(models.Model):
@@ -133,5 +122,4 @@ class Comments(models.Model):
     username = models.CharField(max_length=350, blank=True, null=True, db_column='username')
 
     class Meta:
-        managed = True
         db_table = 'comments'
