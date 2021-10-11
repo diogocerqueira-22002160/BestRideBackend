@@ -7,9 +7,8 @@ RUN ./aws/install
 
 WORKDIR /app
 RUN pip install pipenv
-COPY Pipfile* ./
+COPY ./ ./
 RUN pipenv install --system --deploy --ignore-pipfile
-COPY ./buddyAbroadAPI ./
 
 EXPOSE 8000
 
