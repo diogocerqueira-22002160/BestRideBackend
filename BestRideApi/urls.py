@@ -3,7 +3,6 @@ from . import views
 from . import payments_views
 
 urlpatterns = [
-    path('', views.api_root),
     path('users/', views.user_operations.as_view(),name='users'),
     path('login/',views.user_operations.login),
     path('getUser/<str:token>',views.user_operations.getUser),

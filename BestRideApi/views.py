@@ -505,13 +505,3 @@ class Travels(generics.RetrieveDestroyAPIView):
             travel_result = TravelSerializer(travel)
             return Response(travel_result.data, status=201)
         return Response(travel_serializer.errors, status=400)
-
-
-@api_view(['GET'])
-def api_root(request, format=None):
-    """
-    API for Best Ride App
-    """
-    return Response({
-        'Users': reverse('users', request=request, format=format),
-    })
