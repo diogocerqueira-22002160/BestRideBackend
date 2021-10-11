@@ -12,6 +12,7 @@ mysqlclient = "*"
 boto3 = "*"
 djangorestframework-gis = "*"
 urllib3 = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
