@@ -21,7 +21,7 @@ env.read_env()
 
 
 import boto3
-
+boto3.setup_default_session(region_name=env.str('REGION_NAME_DEFAULT'))
 
 class user_operations(APIView):
     @api_view(['POST'])
