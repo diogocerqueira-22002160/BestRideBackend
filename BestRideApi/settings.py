@@ -17,7 +17,7 @@ import os
 env = Env()
 env.read_env()
 
-GDAL_LIBRARY_PATH = r'C:\OSGeo4W64\bin\gdal303.dll'
+#GDAL_LIBRARY_PATH = r'C:\OSGeo4W64\bin\gdal303.dll'
 #GDAL_LIBRARY_PATH = env.str("GDAL_PATH")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
