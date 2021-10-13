@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM public.ecr.aws/f2l7q0b4/python:3.9
 ENV PYTHONUNBUFFERED 1
 
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
