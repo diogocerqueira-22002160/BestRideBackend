@@ -1,8 +1,10 @@
 from django.urls import path
 from . import views
 from . import payments_views
+from . import driver_views
 
 urlpatterns = [
+    # Turist Urls
     path('users/', views.user_operations.as_view(),name='users'),
     path('login/',views.user_operations.login),
     path('getUser/<str:token>',views.user_operations.getUser),
@@ -31,5 +33,7 @@ urlpatterns = [
     path('travels/<int:turist_id>',views.Travels.get),
     path('createTravel/',views.Travels.post),
     path('getUserid/<str:email>/',views.Users.get),
-    path('makePayment/',payments_views.Payments.make_payment)
+    path('makePayment/',payments_views.Payments.make_payment),
+    # Driver Urls
+    path('create_driver/',driver_views.Driver.create_account)
 ]
