@@ -2,18 +2,16 @@
 url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
-
 [packages]
-environs = {version = "==8.0.0", extras = ["django"]}
-djangorestframework = "==\"*"
-django-cors-headers = "==\"3.10.0"
-mysqlclient = "==\"*"
-boto3 = "==\"*"
-djangorestframework-gis = "==\"*"
-urllib3 = "==\"1.26.4"
-Django = "==\"3.2.8"
-
+environs = "==8.0.0"
+django = "*"
+djangorestframework = "*"
+django-cors-headers = "*"
+mysqlclient = "*"
+boto3 = "*"
+djangorestframework-gis = "*"
+urllib3 = "*"
+psycopg2 = "*"
 [dev-packages]
-
 [requires]
 python_version = "3.9"

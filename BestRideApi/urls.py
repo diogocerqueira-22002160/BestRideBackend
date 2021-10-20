@@ -1,5 +1,4 @@
 from django.urls import path
-
 from .views import user_views,routes_views,views,travel_views,payments_views,comment_views
 
 urlpatterns = [
