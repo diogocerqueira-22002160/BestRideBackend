@@ -8,17 +8,15 @@ from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import *
+from BestRideApi.serializers import *
 from rest_framework_gis.pagination import GeoJsonPagination
 from django.contrib.gis.geos import Point
 from environs import Env
 import math
 import urllib3
 
-
 env = Env()
 env.read_env()
-
 
 import boto3
 
@@ -300,183 +298,6 @@ class user_operations(APIView):
         return Response(response)
 
 
-
-
-
-
-class TranslateAWS():
-
-    @api_view(['POST'])
-    def translate(request):
-        client = boto3.client('translate')
-        response = client.translate_text(
-            Text=request.data['text'], SourceLanguageCode=request.data['sourceLang'],
-            TargetLanguageCode=request.data['outputLang'])
-
-        return JsonResponse({
-            "translated_text": response['TranslatedText']
-        })
-
-class Routes(APIView):
-
-    @api_view(['POST'])
-    def getRoadMap(request):
-        KM_MAX = request.data['kmMAX']
-        Road = RoadMap.objects.all()
-        boto3.setup_default_session(region_name='us-east-2')
-        s3_client = boto3.client('s3')
-
-        distance_dict = {}
-
-        for rd in Road:
-            p1 = Point(request.data['lat'],request.data['lng'])
-            p2 = Point(rd.location.coords[0],rd.location.coords[1])
-            distance = p1.distance(p2)
-            distance_in_km = math.trunc(distance * 100)
-            distance_dict[str(rd.title)] = distance_in_km
-
-        for name,km in distance_dict.items():
-            if km > KM_MAX:
-                Road = Road.exclude(title=name)
-
-        try:
-            for e in Road:
-                response = s3_client.generate_presigned_url('get_object',
-                                                        Params={'Bucket': 'bestridebucket',
-                                                                'Key': '' + e.image},
-                                                        ExpiresIn=3600)
-                e.image = response
-
-        except ClientError as e:
-            logging.error(e)
-
-        Road_Serializer = RoadMapSerializer(Road,many=True)
-        return Response(Road_Serializer.data)
-
-
-
-    @api_view(['POST'])
-    def distance(request):
-        Road = RoadMap.objects.all()
-
-        distance_dict = {}
-
-        for rd in Road:
-            p1 = Point(request.data['lat'],request.data['lng'])
-            p2 = Point(rd.location.coords[0],rd.location.coords[1])
-            distance = p1.distance(p2)
-            distance_in_km = math.trunc(distance * 100)
-            distance_dict[str(rd.title)] = distance_in_km
-
-
-        return JsonResponse(distance_dict)
-
-
-    @api_view(['GET'])
-    def roadMapByCity(request,city):
-        boto3.setup_default_session(region_name='us-east-2')
-        s3_client = boto3.client('s3')
-        roadMap = RoadMap.objects.filter(city_id__name=city)
-
-        try:
-            for point in roadMap:
-                response = s3_client.generate_presigned_url('get_object',
-                                                        Params={'Bucket': 'bestridebucket',
-                                                                'Key': '' + point.image},
-                                                        ExpiresIn=3200)
-                point.image = response
-        except ClientError as e:
-            logging.error(e)
-
-        roadMapSerializer = RoadMapSerializer(roadMap,many=True)
-        return Response(roadMapSerializer.data)
-
-    @api_view(['GET'])
-    def getPointsInterest(request):
-        boto3.setup_default_session(region_name='us-east-2')
-        s3_client = boto3.client('s3')
-        Points = PointInterest.objects.all()
-
-        try:
-            for point in Points:
-                response = s3_client.generate_presigned_url('get_object',
-                                                        Params={'Bucket': 'bestridebucket',
-                                                                'Key': '' + point.image},
-                                                        ExpiresIn=3200)
-                point.image = response
-        except ClientError as e:
-            logging.error(e)
-
-        Points_Serializer = InterestPointsSerializaer(Points,many=True)
-        return Response(Points_Serializer.data)
-
-    @api_view(['GET'])
-    def getItineary(request,id):
-        if id:
-            Itineary = ItinearyRoute.objects.filter(road_map=id)
-            boto3.setup_default_session(region_name='us-east-2')
-            s3_client = boto3.client('s3')
-
-            try:
-                for ip in Itineary:
-                    response = s3_client.generate_presigned_url('get_object',
-                                                                Params={'Bucket': 'bestridebucket',
-                                                                        'Key': '' + ip.interest_points.image},
-                                                                ExpiresIn=3200)
-                    ip.interest_points.image = response
-            except ClientError as e:
-                logging.error(e)
-
-
-            Itineary_Serializer = ItinearyRouteSerializer(Itineary,many=True)
-            return Response(Itineary_Serializer.data)
-        else:
-            return Response("ID missing")
-
-    @api_view(['GET'])
-    def getRoadVehicle(request,id):
-        if id:
-            roadVehicle = RoadVehicle.objects.all().filter(road_map=id)
-            roadvehicleSerializer = RoadVehicleSerializer(roadVehicle,many=True)
-            return Response(roadvehicleSerializer.data)
-        else:
-            return Response("ID Missing")
-
-class Comment(APIView):
-
-    @api_view(['POST'])
-    def postComments(request):
-        if request.method == 'POST':
-            tutorial_data = JSONParser().parse(request)
-            comment_serializer = CommentsSerializer(data=tutorial_data)
-
-            if comment_serializer.is_valid():
-                comment_item_object = comment_serializer.save()
-                return JsonResponse(comment_serializer.data, status=status.HTTP_201_CREATED)
-            return JsonResponse(comment_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return JsonResponse("Bad Request", status=status.HTTP_400_BAD_REQUEST)
-
-    @api_view(['GET'])
-    def getComments(request, id):
-        comment = Comments.objects.all().filter(road_map=id)
-        comments_Serializer = CommentsSerializer(comment, many=True)
-        return Response(comments_Serializer.data)
-
-class TravelScheduleList(generics.ListCreateAPIView):
-    queryset = TravelSchedule.objects.all()
-    serializer_class = TravelScheduleSerializer
-
-class TravelScheduleGet(generics.RetrieveDestroyAPIView):
-    queryset = TravelSchedule.objects.all()
-    serializer_class = TravelScheduleSerializer
-
-    @api_view(['GET'])
-    def get(request,pk):
-        queryset = TravelSchedule.objects.all().filter(turist_id=pk)
-        serializer_class = TravelScheduleSerializer(queryset,many=True)
-        return Response(serializer_class.data)
-
 class Users(generics.RetrieveDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -486,32 +307,3 @@ class Users(generics.RetrieveDestroyAPIView):
         queryset = User.objects.all().filter(email=email)
         serializer_class = UserSerializer(queryset,many=True)
         return Response(serializer_class.data)
-
-class Travels(generics.RetrieveDestroyAPIView):
-    queryset = Travel.objects.all()
-    serializer_class = TravelSerializer
-
-    @api_view(['GET'])
-    def get(request,turist_id):
-        queryset = Travel.objects.all().filter(turist_id=turist_id)
-        serializer_class = TravelSerializer(queryset,many=True)
-        return Response(serializer_class.data)
-
-    @api_view(['POST'])
-    def post(request):
-        travel_serializer = TravelSerializer(data=request.data)
-        if travel_serializer.is_valid():
-            travel = travel_serializer.save()
-            travel_result = TravelSerializer(travel)
-            return Response(travel_result.data, status=201)
-        return Response(travel_serializer.errors, status=400)
-
-
-@api_view(['GET'])
-def api_root(request, format=None):
-    """
-    API for Best Ride App
-    """
-    return Response({
-        'Users': reverse('users', request=request, format=format),
-    })
