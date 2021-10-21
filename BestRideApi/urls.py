@@ -1,6 +1,5 @@
 from django.urls import path
-from .views import user_views,routes_views,views,travel_views,payments_views,comment_views
-from . import driver_views
+from .views import user_views, routes_views, views, travel_views, payments_views, comment_views, driver_views
 
 urlpatterns = [
     path('', views.api_root),
@@ -27,6 +26,7 @@ urlpatterns = [
     path('itineary/distance/',routes_views.Routes.distance),
     path('getComments/<int:id>', comment_views.Comment.getComments),
     path('postComments/', comment_views.Comment.postComments),
+    path('getAverageComments/<int:id>', comment_views.Comment.getAverageComments),
     path('travelsSchedule/',travel_views.TravelScheduleList.as_view()),
     path('travelsSchedule/<int:pk>/',travel_views.TravelScheduleGet.get),
     path('travels/<int:turist_id>',travel_views.Travels.get),
@@ -34,6 +34,5 @@ urlpatterns = [
     path('getUserid/<str:email>/',user_views.Users.get),
     path('makePayment/',payments_views.Payments.make_payment),
     # Driver Urls
-    path('create_driver/',driver_views.Driver.create_account),
-    path('getAverageComments/<int:id>', comment_views.Comment.getAverageComments)
+    path('create_driver/', driver_views.Driver.create_account)
 ]
