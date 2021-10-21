@@ -42,3 +42,16 @@ class Comment(APIView):
         comments_Serializer = CommentsSerializer(comment, many=True)
         return Response(comments_Serializer.data)
 
+    @api_view(['GET'])
+    def getAverageComments(request, id):
+        comments = Comments.objects.all().filter(road_map=id)
+        count = 0.0
+        pontuation = 0.0
+        for comment in comments:
+            pontuation += comment.pontuation
+            count += 1
+
+        average = pontuation/count
+
+        return Response(average)
+

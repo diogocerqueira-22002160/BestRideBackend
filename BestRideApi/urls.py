@@ -34,5 +34,6 @@ urlpatterns = [
     path('getUserid/<str:email>/',user_views.Users.get),
     path('makePayment/',payments_views.Payments.make_payment),
     # Driver Urls
-    path('create_driver/',driver_views.Driver.create_account)
+    path('create_driver/',driver_views.Driver.create_account),
+    path('getAverageComments/<int:id>', comment_views.Comment.getAverageComments)
 ]
