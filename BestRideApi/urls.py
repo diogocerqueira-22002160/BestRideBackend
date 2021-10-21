@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import user_views,routes_views,views,travel_views,payments_views,comment_views
+from . import driver_views
 
 urlpatterns = [
     path('', views.api_root),
@@ -31,5 +32,7 @@ urlpatterns = [
     path('travels/<int:turist_id>',travel_views.Travels.get),
     path('createTravel/',travel_views.Travels.post),
     path('getUserid/<str:email>/',user_views.Users.get),
-    path('makePayment/',payments_views.Payments.make_payment)
+    path('makePayment/',payments_views.Payments.make_payment),
+    # Driver Urls
+    path('create_driver/',driver_views.Driver.create_account)
 ]
