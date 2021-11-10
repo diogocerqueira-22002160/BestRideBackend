@@ -34,7 +34,6 @@ urlpatterns = [
     path('createTravel/',travel_views.Travels.post),
     path('getUserid/<str:email>/',user_views.Users.get),
     path('makePayment/',payments_views.Payments.make_payment),
-    path('uploadImage/',views.Images.upload_file),
     # Driver Urls
     path('create_driver/', driver_views.Driver.create_account)
 ]
