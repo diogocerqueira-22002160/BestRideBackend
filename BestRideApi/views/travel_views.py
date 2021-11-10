@@ -42,9 +42,15 @@ class Travels(generics.RetrieveDestroyAPIView):
     serializer_class = TravelSerializer
 
     @api_view(['GET'])
-    def get(request,turist_id):
+    def getTurista(request,turist_id):
         queryset = Travel.objects.all().filter(turist_id=turist_id)
         serializer_class = TravelSerializer(queryset,many=True)
+        return Response(serializer_class.data)
+
+    @api_view(['GET'])
+    def get(request):
+        queryset = Travel.objects.all()
+        serializer_class = TravelSerializer(queryset, many=True)
         return Response(serializer_class.data)
 
     @api_view(['POST'])

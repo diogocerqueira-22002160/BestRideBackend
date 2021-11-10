@@ -59,6 +59,7 @@ class TravelScheduleSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class TravelSerializer(serializers.ModelSerializer):
+    road_map_id = RoadMapSerializer()
     class Meta:
         model = Travel
         fields = '__all__'

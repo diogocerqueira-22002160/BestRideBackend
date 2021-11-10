@@ -29,10 +29,12 @@ urlpatterns = [
     path('getAverageComments/<int:id>', comment_views.Comment.getAverageComments),
     path('travelsSchedule/',travel_views.TravelScheduleList.as_view()),
     path('travelsSchedule/<int:pk>/',travel_views.TravelScheduleGet.get),
-    path('travels/<int:turist_id>',travel_views.Travels.get),
+    path('travels/<int:turist_id>',travel_views.Travels.getTurista),
+    path('getTravels/',travel_views.Travels.get),
     path('createTravel/',travel_views.Travels.post),
     path('getUserid/<str:email>/',user_views.Users.get),
     path('makePayment/',payments_views.Payments.make_payment),
+    path('uploadImage/',views.Images.upload_file),
     # Driver Urls
     path('create_driver/', driver_views.Driver.create_account)
 ]

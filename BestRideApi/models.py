@@ -123,3 +123,19 @@ class Comments(models.Model):
 
     class Meta:
         db_table = 'comments'
+
+class Driver(models.Model):
+    idDriver = models.AutoField(db_column='idUser', primary_key=True)  # Field name made lowercase.
+    email = models.CharField(max_length=255, blank=True, null=True)
+    image = models.CharField(max_length=4000, blank=True, null=True)
+
+    class Meta:
+        db_table = 'User'
+
+
+class EmrpesaDriver(models.Model):
+    idEmrpesa = models.AutoField(db_column='idUser', primary_key=True)  # Field name made lowercase.
+    email = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        db_table = 'User'
