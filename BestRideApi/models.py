@@ -16,7 +16,7 @@ class Travel(models.Model):
     horaInicio = models.DateField
     horaFim = models.DateField
     road_map_id = models.ForeignKey('RoadMap',models.DO_NOTHING,db_column='road_map_id')
-    driver_id = models.ForeignKey('User', models.DO_NOTHING, db_column='driver_id',related_name="driverID")
+    driver_id = models.ForeignKey('Driver', models.DO_NOTHING, db_column='driver_id',related_name="driverID")
 
     class Meta:
         db_table = 'Travel'
@@ -58,14 +58,14 @@ class User(models.Model):
     class Meta:
         db_table = 'User'
 
-"""class EmergencyContactDrive:
+class EmergencyContactDriver(models.Model):
     idEmergencyContactDrive = models.AutoField(db_column='idEmergencyContactDrive', primary_key=True)  # Field name made lowercase.
     name = models.CharField(max_length=50, blank=True, null=True)
     phone = models.CharField(max_length=15, blank=True, null=True)
     relation = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        db_table = 'EmergencyContactDrive'
+        db_table = 'EmergencyContactDriver'
 
 class Driver(models.Model):
     idDriver = models.AutoField(db_column='idDriver', primary_key=True)  # Field name made lowercase.
@@ -76,7 +76,7 @@ class Driver(models.Model):
     vehiclesCanDrive = models.CharField(max_length=255, blank=True, null=True) #Falta ver como meter mais que 1
     availableHours = models.CharField(max_length=255, blank=True, null=True) #Falta ver como gerir esta info
     courseTaken = models.CharField(max_length=255, blank=True, null=True) #Falta ver como meter mais que 1
-    emergencyContactDrive = models.ForeignKey("EmergencyContactDrive", models.DO_NOTHING, db_column='emergencyContactDrive')
+    emergencyContact_id = models.OneToOneField(EmergencyContactDriver, models.DO_NOTHING, db_column='emergencyContact_id')
     typeGuide = models.CharField(max_length=255, blank=True, null=True)
     about = models.CharField(max_length=4000, blank=True, null=True)
     video = models.CharField(max_length=4000, blank=True, null=True)
@@ -93,7 +93,7 @@ class EmpresaDriver:
     relation = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        db_table = 'EmpresaDriver'"""
+        db_table = 'EmpresaDriver'
 
 class City(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
