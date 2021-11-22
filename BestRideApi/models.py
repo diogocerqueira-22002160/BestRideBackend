@@ -58,6 +58,42 @@ class User(models.Model):
     class Meta:
         db_table = 'User'
 
+class EmergencyContactDrive:
+    idEmergencyContactDrive = models.AutoField(db_column='idEmergencyContactDrive', primary_key=True)  # Field name made lowercase.
+    name = models.CharField(max_length=50, blank=True, null=True)
+    phone = models.CharField(max_length=15, blank=True, null=True)
+    relation = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        db_table = 'EmergencyContactDrive'
+
+class Driver(models.Model):
+    idDriver = models.AutoField(db_column='idDriver', primary_key=True)  # Field name made lowercase.
+    email = models.CharField(max_length=255, blank=True, null=True)
+    image = models.CharField(max_length=4000, blank=True, null=True)
+    specialNeedSuppport =  models.CharField(max_length=255, blank=True, null=True)
+    languages = models.CharField(max_length=255, blank=True, null=True) #Falta ver como meter mais que 1
+    vehiclesCanDrive = models.CharField(max_length=255, blank=True, null=True) #Falta ver como meter mais que 1
+    availableHours = models.CharField(max_length=255, blank=True, null=True) #Falta ver como gerir esta info
+    courseTaken = models.CharField(max_length=255, blank=True, null=True) #Falta ver como meter mais que 1
+    emergencyContactDrive = models.ForeignKey("EmergencyContactDrive", models.DO_NOTHING, db_column='emergencyContactDrive')
+    typeGuide = models.CharField(max_length=255, blank=True, null=True)
+    about = models.CharField(max_length=4000, blank=True, null=True)
+    video = models.CharField(max_length=4000, blank=True, null=True)
+    startActivity = models.CharField(max_length=10, blank=True, null=True)
+
+
+    class Meta:
+        db_table = 'Driver'
+
+class EmpresaDriver:
+    idEmpresaDriver = models.AutoField(db_column='idEmpresaDriver', primary_key=True)  # Field name made lowercase.
+    name = models.CharField(max_length=50, blank=True, null=True)
+    phone = models.CharField(max_length=15, blank=True, null=True)
+    relation = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        db_table = 'EmpresaDriver'
 
 class City(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)

@@ -9,6 +9,22 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
+class EmergencyContactDriveSerializer(serializers.ModelSerializer):
+    class Meta:
+            model = EmergencyContactDrive
+            fields = '__all__'
+
+class DriverSerializer(serializers.ModelSerializer):
+    emergencyContactDrive = EmergencyContactDriveSerializer()
+
+    class Meta:
+        model = Driver
+        fields = '__all__'
+
+class EmpresaDriverSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EmpresaDriver
+        fields = '__all__'
 
 class InterestPointsSerializaer(serializers.ModelSerializer):
     class Meta:
@@ -53,13 +69,11 @@ class CommentsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class TravelScheduleSerializer(serializers.ModelSerializer):
-    road_map_id = RoadMapSerializer(read_only=True)
     class Meta:
         model = TravelSchedule
         fields = '__all__'
 
 class TravelSerializer(serializers.ModelSerializer):
-    road_map_id = RoadMapSerializer()
     class Meta:
         model = Travel
         fields = '__all__'
