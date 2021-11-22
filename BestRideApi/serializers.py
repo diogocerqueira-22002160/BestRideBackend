@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
-class EmergencyContactDriveSerializer(serializers.ModelSerializer):
+"""class EmergencyContactDriveSerializer(serializers.ModelSerializer):
     class Meta:
             model = EmergencyContactDrive
             fields = '__all__'
@@ -24,7 +24,7 @@ class DriverSerializer(serializers.ModelSerializer):
 class EmpresaDriverSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmpresaDriver
-        fields = '__all__'
+        fields = '__all__'"""
 
 class InterestPointsSerializaer(serializers.ModelSerializer):
     class Meta:

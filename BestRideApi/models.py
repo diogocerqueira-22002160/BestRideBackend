@@ -58,7 +58,7 @@ class User(models.Model):
     class Meta:
         db_table = 'User'
 
-class EmergencyContactDrive:
+"""class EmergencyContactDrive:
     idEmergencyContactDrive = models.AutoField(db_column='idEmergencyContactDrive', primary_key=True)  # Field name made lowercase.
     name = models.CharField(max_length=50, blank=True, null=True)
     phone = models.CharField(max_length=15, blank=True, null=True)
@@ -93,7 +93,7 @@ class EmpresaDriver:
     relation = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        db_table = 'EmpresaDriver'
+        db_table = 'EmpresaDriver'"""
 
 class City(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
