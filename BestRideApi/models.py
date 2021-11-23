@@ -86,7 +86,7 @@ class Driver(models.Model):
     class Meta:
         db_table = 'Driver'
 
-class EmpresaDriver:
+class EmpresaDriver(models.Model):
     idEmpresaDriver = models.AutoField(db_column='idEmpresaDriver', primary_key=True)  # Field name made lowercase.
     name = models.CharField(max_length=50, blank=True, null=True)
     phone = models.CharField(max_length=15, blank=True, null=True)
