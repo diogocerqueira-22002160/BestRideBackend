@@ -145,3 +145,14 @@ class Routes(APIView):
             return Response(roadvehicleSerializer.data)
         else:
             return Response("ID Missing")
+
+    @api_view(['POST'])
+    def postRoutes(request):
+        route_serializer = RoadMapSerializer(data=request.data)
+        if route_serializer.is_valid():
+            route_serializer.save()
+            route_result = RoadMapSerializer()
+            return Response(route_result.data, status=201)
+        return Response(route_serializer.errors, status=400)
+
+

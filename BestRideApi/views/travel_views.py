@@ -55,10 +55,10 @@ class Travels(generics.RetrieveDestroyAPIView):
 
     @api_view(['POST'])
     def post(request):
-        data = request.data
         travel_serializer = TravelSerializer(data=request.data)
         if travel_serializer.is_valid():
             travel_serializer.save()
             travel_result = TravelSerializer()
             return Response(travel_result.data, status=201)
         return Response(travel_serializer.errors, status=400)
+

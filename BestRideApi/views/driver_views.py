@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from environs import Env
 from rest_framework.response import Response
+from BestRideApi.serializers import *
 
 env = Env()
 env.read_env()
@@ -49,3 +50,33 @@ class Driver():
             return Response("Username already Exists !", status=status.HTTP_404_NOT_FOUND)
         except client.exceptions.CodeDeliveryFailureException:
             return Response("Error on send Code !", status=status.HTTP_404_NOT_FOUND)
+
+    @api_view(['POST'])
+    def postDriverEmpresa(request):
+        driver_serializer = EmpresaDriverSerializer(data=request.data)
+        if driver_serializer.is_valid():
+            driver_serializer.save()
+            driver_result = EmpresaDriverSerializer()
+            return  Response(driver_result.data, status=201)
+        return Response(driver_serializer.errors, status=400)
+
+    @api_view(['GET'])
+    def getDriverEmpresa(request):
+        queryset = EmpresaDriver.objects.all()
+        serialzer_class = EmpresaDriverSerializer(queryset, many=True)
+        return Response(serialzer_class.data)
+
+    @api_view(['POST'])
+    def postDriver(request):
+        driver_serializer = DriverSerializer(data=request.data)
+        if driver_serializer.is_valid():
+            driver_serializer.save()
+            driver_result = DriverSerializer()
+            return  Response(driver_result.data, status=201)
+        return Response(driver_serializer.errors, status=400)
+
+    @api_view(['GET'])
+    def getDriver(request):
+        queryset = Driver.objects.all()
+        serialzer_class = DriverSerializer(queryset, many=True)
+        return Response(serialzer_class.data)

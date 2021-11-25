@@ -35,7 +35,12 @@ urlpatterns = [
     path('getUserid/<str:email>/',user_views.Users.get),
     path('makePayment/',payments_views.Payments.make_payment),
     path('uploadImage/',views.Images.upload_file),
+    path('postRoute/', routes_views.Routes.postRoutes),
 
     # Driver Urls
-    path('create_driver/', driver_views.Driver.create_account)
+    path('create_driver/', driver_views.Driver.create_account),
+    path('create_driverEmpresa/', driver_views.Driver.postDriverEmpresa),
+    path('getDriverEmpresa/', driver_views.Driver.getDriverEmpresa),
+    path('postDriver/', driver_views.Driver.postDriver),
+    path('getDriver/', driver_views.Driver.getDriver),
 ]

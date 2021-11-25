@@ -76,7 +76,7 @@ class Driver(models.Model):
     vehiclesCanDrive = models.CharField(max_length=255, blank=True, null=True) #Falta ver como meter mais que 1
     availableHours = models.CharField(max_length=255, blank=True, null=True) #Falta ver como gerir esta info
     courseTaken = models.CharField(max_length=255, blank=True, null=True) #Falta ver como meter mais que 1
-    emergencyContact_id = models.OneToOneField(EmergencyContactDriver, models.DO_NOTHING, db_column='emergencyContact_id')
+    emergencyContact_id = models.ForeignKey(EmergencyContactDriver, models.DO_NOTHING, db_column='emergencyContact_id')
     typeGuide = models.CharField(max_length=255, blank=True, null=True)
     about = models.CharField(max_length=4000, blank=True, null=True)
     video = models.CharField(max_length=4000, blank=True, null=True)
@@ -90,7 +90,7 @@ class EmpresaDriver(models.Model):
     idEmpresaDriver = models.AutoField(db_column='idEmpresaDriver', primary_key=True)  # Field name made lowercase.
     name = models.CharField(max_length=50, blank=True, null=True)
     phone = models.CharField(max_length=15, blank=True, null=True)
-    relation = models.CharField(max_length=50, blank=True, null=True)
+
 
     class Meta:
         db_table = 'EmpresaDriver'
