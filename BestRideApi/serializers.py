@@ -15,7 +15,7 @@ class EmergencyContactDriverSerializer(serializers.ModelSerializer):
             fields = '__all__'
 
 class DriverSerializer(serializers.ModelSerializer):
-    emergencyContactDrive = EmergencyContactDriverSerializer()
+    emergencyContactDrive = EmergencyContactDriverSerializer(read_only=True)
 
     class Meta:
         model = Driver

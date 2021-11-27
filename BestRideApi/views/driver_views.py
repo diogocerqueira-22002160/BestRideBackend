@@ -11,7 +11,7 @@ env.read_env()
 import boto3
 boto3.setup_default_session(region_name=env.str('REGION_NAME_DEFAULT'))
 
-class Driver():
+class ViewsDriver():
 
     @api_view(['POST'])
     def create_account(request):
@@ -80,3 +80,12 @@ class Driver():
         queryset = Driver.objects.all()
         serialzer_class = DriverSerializer(queryset, many=True)
         return Response(serialzer_class.data)
+
+    @api_view(['POST'])
+    def postEmergencycontact(request):
+        emergencyContact_serializer = EmergencyContactDriverSerializer(data=request.data)
+        if emergencyContact_serializer.is_valid():
+            emergencyContact_serializer.save()
+            emergencyContact_result = EmergencyContactDriverSerializer()
+            return Response(emergencyContact_result.data, status=201)
+        return Response(emergencyContact_serializer.errors, status=400)

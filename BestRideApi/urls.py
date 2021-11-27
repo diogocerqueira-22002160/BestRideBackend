@@ -38,9 +38,9 @@ urlpatterns = [
     path('postRoute/', routes_views.Routes.postRoutes),
 
     # Driver Urls
-    path('create_driver/', driver_views.Driver.create_account),
-    path('create_driverEmpresa/', driver_views.Driver.postDriverEmpresa),
-    path('getDriverEmpresa/', driver_views.Driver.getDriverEmpresa),
-    path('postDriver/', driver_views.Driver.postDriver),
-    path('getDriver/', driver_views.Driver.getDriver),
+    path('create_driverEmpresa/', driver_views.ViewsDriver.postDriverEmpresa),
+    path('getDriverEmpresa/', driver_views.ViewsDriver.getDriverEmpresa),
+    path('postDriver/', driver_views.ViewsDriver.postDriver),
+    path('getDriver/', driver_views.ViewsDriver.getDriver),
+    path('postEmergencyContact/', driver_views.ViewsDriver.postEmergencycontact),
 ]
