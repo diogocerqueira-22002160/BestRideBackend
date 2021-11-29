@@ -38,6 +38,21 @@ urlpatterns = [
     path('postRoute/', routes_views.Routes.postRoutes),
 
     # Driver Urls
+    path('loginDriver/', driver_views.CognitoDriver.login),
+    path('loginGoogleDriver/', driver_views.CognitoDriver.loginGoogle),
+    path('cancelAccountDriver/', driver_views.CognitoDriver.cancelAccount),
+    path('createDriver/', driver_views.CognitoDriver.create_account),
+    path('getCognitoDriver/<str:token>',driver_views.CognitoDriver.getUser),
+    path('recoverDriver/',driver_views.CognitoDriver.recoverAccount),
+    path('updateDriver/<str:token>',driver_views.CognitoDriver.updateUser),
+    path('changePasswordDriver/<str:token>',driver_views.CognitoDriver.changePassword),
+    path('saveDriver/',driver_views.CognitoDriver.saveUser),
+    path('updateImageDriver/<str:email>',driver_views.CognitoDriver.updateImageUser),
+    path('confirmRecoverDriver/',driver_views.CognitoDriver.confirmRecoverAccount),
+    path('verifyAccountDriver/',driver_views.CognitoDriver.confirmAccount),
+    path('resend_codeDriver/',driver_views.CognitoDriver.resend_code),
+    path('cancelAccountDriver/',driver_views.CognitoDriver.cancelAccount),
+
     path('create_driverEmpresa/', driver_views.ViewsDriver.postDriverEmpresa),
     path('getDriverEmpresa/', driver_views.ViewsDriver.getDriverEmpresa),
     path('postDriver/', driver_views.ViewsDriver.postDriver),
