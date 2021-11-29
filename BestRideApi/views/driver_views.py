@@ -76,8 +76,8 @@ class ViewsDriver():
         return Response(driver_serializer.errors, status=400)
 
     @api_view(['GET'])
-    def getDriver(request):
-        queryset = Driver.objects.all()
+    def getDriver(request, email):
+        queryset = Driver.objects.all().filter(email=email)
         serialzer_class = DriverSerializer(queryset, many=True)
         return Response(serialzer_class.data)
 

@@ -299,9 +299,6 @@ class user_operations(APIView):
 
 
 class Users(generics.RetrieveDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
     @api_view(['GET'])
     def get(request,email):
         queryset = User.objects.all().filter(email=email)

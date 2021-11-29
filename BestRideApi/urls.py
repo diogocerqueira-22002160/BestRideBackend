@@ -41,6 +41,6 @@ urlpatterns = [
     path('create_driverEmpresa/', driver_views.ViewsDriver.postDriverEmpresa),
     path('getDriverEmpresa/', driver_views.ViewsDriver.getDriverEmpresa),
     path('postDriver/', driver_views.ViewsDriver.postDriver),
-    path('getDriver/', driver_views.ViewsDriver.getDriver),
+    path('getDriver/<str:email>', driver_views.ViewsDriver.getDriver),
     path('postEmergencyContact/', driver_views.ViewsDriver.postEmergencycontact),
 ]
