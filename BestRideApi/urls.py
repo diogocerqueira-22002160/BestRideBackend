@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import user_views, routes_views, views, travel_views, payments_views, comment_views, driver_views
+from .views import user_views, routes_views, views, travel_views, payments_views, comment_views, driver_views, \
+    driverEnterprise_views
 
 urlpatterns = [
     path('', views.api_root),
@@ -53,9 +54,26 @@ urlpatterns = [
     path('resend_codeDriver/',driver_views.CognitoDriver.resend_code),
     path('cancelAccountDriver/',driver_views.CognitoDriver.cancelAccount),
 
-    path('create_driverEmpresa/', driver_views.ViewsDriver.postDriverEmpresa),
-    path('getDriverEmpresa/', driver_views.ViewsDriver.getDriverEmpresa),
     path('postDriver/', driver_views.ViewsDriver.postDriver),
     path('getDriver/<str:email>', driver_views.ViewsDriver.getDriver),
     path('postEmergencyContact/', driver_views.ViewsDriver.postEmergencycontact),
+
+
+    #DriverEnterprise Urlspath('loginDriver/', driver_views.CognitoDriver.login),
+    path('loginGoogleDriverEnterprise/', driverEnterprise_views.DriverEnterpriseCognito.loginGoogle),
+    path('cancelAccountDriverEnterprise/', driverEnterprise_views.DriverEnterpriseCognito.cancelAccount),
+    path('createDriverEnterprise/', driverEnterprise_views.DriverEnterpriseCognito.create_account),
+    path('getCognitoDriverEnterprise/<str:token>',driverEnterprise_views.DriverEnterpriseCognito.getUser),
+    path('recoverDriverEnterprise/',driverEnterprise_views.DriverEnterpriseCognito.recoverAccount),
+    path('updateDriverEnterprise/<str:token>',driverEnterprise_views.DriverEnterpriseCognito.updateUser),
+    path('changePasswordDriverEnterprise/<str:token>',driverEnterprise_views.DriverEnterpriseCognito.changePassword),
+    path('saveDriverEnterprise/',driverEnterprise_views.DriverEnterpriseCognito.saveUser),
+    path('updateImageDriverEnterprise/<str:email>',driverEnterprise_views.DriverEnterpriseCognito.updateImageUser),
+    path('confirmRecoverDriverEnterprise/',driverEnterprise_views.DriverEnterpriseCognito.confirmRecoverAccount),
+    path('verifyAccountDriverEnterprise/',driverEnterprise_views.DriverEnterpriseCognito.confirmAccount),
+    path('resend_codeDriverEnterprise/',driverEnterprise_views.DriverEnterpriseCognito.resend_code),
+    path('cancelAccountDriverEnterprise/',driverEnterprise_views.DriverEnterpriseCognito.cancelAccount),
+
+    path('create_driverEmpresa/', driverEnterprise_views.DriverEnterprise.postDriverEmpresa),
+    path('getDriverEmpresa/',  driverEnterprise_views.DriverEnterprise.getDriverEmpresa),
 ]
