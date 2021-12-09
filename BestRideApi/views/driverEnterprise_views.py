@@ -199,6 +199,7 @@ class DriverEnterpriseCognito:
         except client.exceptions.UserNotFoundException:
             return Response("User Not Found", status=status.HTTP_400_BAD_REQUEST)
 
+    @api_view(['POST'])
     def create_account(self, request):
         boto3.setup_default_session(region_name=env.str('REGION_NAME_DEFAULT'))
         client = boto3.client('cognito-idp')
