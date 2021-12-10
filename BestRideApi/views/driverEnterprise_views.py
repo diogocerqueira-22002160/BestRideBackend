@@ -200,19 +200,14 @@ class DriverEnterpriseCognito:
             return Response("User Not Found", status=status.HTTP_400_BAD_REQUEST)
 
     @api_view(['POST'])
-    def create_account(self, request):
-        boto3.setup_default_session(region_name=env.str('REGION_NAME_DEFAULT'))
+    def create_account(request):
         client = boto3.client('cognito-idp')
         try:
-            response = client.sign_up(
+            response_sign_up = client.sign_up(
                 ClientId=env.str('DriverEnterprise_CLIENT_ID'),
                 Username=request.data['email'],
                 Password=request.data['password'],
                 UserAttributes=[
-                    {
-                        'Name': "name",
-                        'Value': request.data['name']
-                    },
                     {
                         'Name': "address",
                         'Value': request.data['address']
@@ -222,15 +217,15 @@ class DriverEnterpriseCognito:
                         'Value': request.data['locale']
                     },
                     {
-                        'Name': "Coutry",
-                        'Value': request.data['coutry']
+                        'Name': "custom:country",
+                        'Value': request.data['country']
                     },
                     {
-                        'Name': "PostalCode",
-                        'Value': request.data['postalCode']
+                        'Name': "custom:postalcode",
+                        'Value': request.data['postalcode']
                     },
                     {
-                        'Name': "NIF",
+                        'Name': "custom:nif",
                         'Value': request.data['nif']
                     },
                     {
@@ -239,7 +234,21 @@ class DriverEnterpriseCognito:
                     },
                 ],
             )
-            return JsonResponse(response)
+
+            response_confirm = client.admin_confirm_sign_up(
+                UserPoolId=env.str('USER_POOL_ID'),
+                Username=request.data['email'],
+            )
+
+            response_login = client.initiate_auth(
+                ClientId=env.str("Driver_CLIENT_ID"),
+                AuthFlow="USER_PASSWORD_AUTH",
+                AuthParameters={
+                    "USERNAME": request.data['email'],
+                    "PASSWORD": request.data['password']
+                },
+            )
+            return JsonResponse(response_login)
 
         except client.exceptions.InvalidPasswordException:
             return Response("Invalid Password Format",status=status.HTTP_404_NOT_FOUND)
@@ -247,6 +256,7 @@ class DriverEnterpriseCognito:
             return Response("Username already Exists !", status=status.HTTP_404_NOT_FOUND)
         except client.exceptions.CodeDeliveryFailureException:
             return Response("Error on send Code !", status=status.HTTP_404_NOT_FOUND)
+
 
     @api_view(['POST'])
     def login(request):
