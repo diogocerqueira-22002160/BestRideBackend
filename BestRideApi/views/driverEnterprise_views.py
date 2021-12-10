@@ -209,6 +209,10 @@ class DriverEnterpriseCognito:
                 Password=request.data['password'],
                 UserAttributes=[
                     {
+                        'Name': "name",
+                        'Value': request.data['name']
+                    },
+                    {
                         'Name': "address",
                         'Value': request.data['address']
                     },
@@ -235,20 +239,8 @@ class DriverEnterpriseCognito:
                 ],
             )
 
-            response_confirm = client.admin_confirm_sign_up(
-                UserPoolId=env.str('USER_POOL_ID'),
-                Username=request.data['email'],
-            )
 
-            response_login = client.initiate_auth(
-                ClientId=env.str("Driver_CLIENT_ID"),
-                AuthFlow="USER_PASSWORD_AUTH",
-                AuthParameters={
-                    "USERNAME": request.data['email'],
-                    "PASSWORD": request.data['password']
-                },
-            )
-            return JsonResponse(response_login)
+            return JsonResponse(response_sign_up)
 
         except client.exceptions.InvalidPasswordException:
             return Response("Invalid Password Format",status=status.HTTP_404_NOT_FOUND)
