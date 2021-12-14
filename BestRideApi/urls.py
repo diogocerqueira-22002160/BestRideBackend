@@ -59,7 +59,7 @@ urlpatterns = [
     path('postEmergencyContact/', driver_views.ViewsDriver.postEmergencycontact),
 
 
-    #DriverEnterprise Urlspath('loginDriver/', driver_views.CognitoDriver.login),
+    path('loginEnterprise/', driverEnterprise_views.DriverEnterpriseCognito.login),
     path('loginGoogleDriverEnterprise/', driverEnterprise_views.DriverEnterpriseCognito.loginGoogle),
     path('cancelAccountDriverEnterprise/', driverEnterprise_views.DriverEnterpriseCognito.cancelAccount),
     path('createDriverEnterprise/', driverEnterprise_views.DriverEnterpriseCognito.create_account),
