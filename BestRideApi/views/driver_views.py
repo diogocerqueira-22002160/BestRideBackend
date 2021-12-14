@@ -16,7 +16,7 @@ class CognitoDriver():
 
     @api_view(['POST'])
     def recoverAccount(request):
-        boto3.setup_default_session(region_name='eu-west-2')
+        boto3.setup_default_session(region_name=env.str('REGION_NAME_DEFAULT'))
         client = boto3.client('cognito-idp')
 
         try:
@@ -29,7 +29,7 @@ class CognitoDriver():
 
     @api_view(['POST'])
     def confirmRecoverAccount(request):
-        boto3.setup_default_session(region_name='eu-west-2')
+        boto3.setup_default_session(region_name=env.str('REGION_NAME_DEFAULT'))
         client = boto3.client('cognito-idp')
 
         try:
@@ -45,7 +45,7 @@ class CognitoDriver():
 
     @api_view(['POST'])
     def resend_code(request):
-        boto3.setup_default_session(region_name='eu-west-2')
+        boto3.setup_default_session(region_name=env.str('REGION_NAME_DEFAULT'))
         client = boto3.client('cognito-idp')
 
         try:
@@ -108,6 +108,7 @@ class CognitoDriver():
 
     @api_view(['POST'])
     def create_account(request):
+        boto3.setup_default_session(region_name=env.str('REGION_NAME_DEFAULT'))
         client = boto3.client('cognito-idp')
         try:
             response_sign_up = client.sign_up(
@@ -295,7 +296,7 @@ class CognitoDriver():
 
     @api_view(['PUT'])
     def changePassword(request, token):
-        boto3.setup_default_session(region_name='eu-west-2')
+        boto3.setup_default_session(region_name=env.str('REGION_NAME_DEFAULT'))
         client = boto3.client('cognito-idp')
 
         try:
@@ -331,7 +332,7 @@ class CognitoDriver():
 
     @api_view(['POST'])
     def cancelAccount(request):
-        boto3.setup_default_session(region_name='us-west-2')
+        boto3.setup_default_session(region_name=env.str('REGION_NAME_DEFAULT'))
         client = boto3.client('cognito-idp')
         try:
             client.delete_user(
@@ -361,7 +362,7 @@ class CognitoDriver():
             return Response("Incorrect username or password", status=status.HTTP_404_NOT_FOUND)
 
     def loginGoogle(request):
-        boto3.setup_default_session(region_name='eu-west-2')
+        boto3.setup_default_session(region_name=env.str('REGION_NAME_DEFAULT'))
         cidp = boto3.client('cognito-idp')
         response = cidp.get_id(
             AccountId='YOUR AWS ACCOUNT ID',
