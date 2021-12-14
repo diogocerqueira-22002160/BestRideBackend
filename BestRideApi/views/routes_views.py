@@ -57,8 +57,6 @@ class Routes(APIView):
         Road_Serializer = RoadMapSerializer(Road,many=True)
         return Response(Road_Serializer.data)
 
-
-
     @api_view(['POST'])
     def distance(request):
         Road = RoadMap.objects.all()
@@ -74,7 +72,6 @@ class Routes(APIView):
 
 
         return JsonResponse(distance_dict)
-
 
     @api_view(['GET'])
     def roadMapByCity(request,city):
@@ -114,6 +111,21 @@ class Routes(APIView):
         Points_Serializer = InterestPointsSerializaer(Points,many=True)
         return Response(Points_Serializer.data)
 
+    @api_view(['Post'])
+    def postPointsInterest(request):
+        pointInterestSerializer = InterestPointsSerializaer(data=request.data)
+        if pointInterestSerializer.is_valid():
+            pointInterestSerializer.save()
+            emergencyContact_result = EmergencyContactDriverSerializer()
+            return Response(emergencyContact_result.data, status=201)
+        return Response(pointInterestSerializer.errors, status=400)
+
+    @api_view(['GET'])
+    def getPointsInterest(request):
+        pointsInterest = PointInterest.objects.all()
+        interestPointsSerializer = InterestPointsSerializaer(pointsInterest, many=True)
+        return Response(pointsInterest.data)
+
     @api_view(['GET'])
     def getItineary(request,id):
         if id:
@@ -145,6 +157,21 @@ class Routes(APIView):
             return Response(roadvehicleSerializer.data)
         else:
             return Response("ID Missing")
+
+    @api_view(['GET'])
+    def getVehicles(request):
+        vehicles = Vehicle.objects.all()
+        vehicleSerializer = VehicleSerializer(vehicles, many=True)
+        return Response(vehicleSerializer.data)
+
+    @api_view(['POST'])
+    def postVehicle(request):
+        roadVehicle_serializer = VehicleSerializer(data=request.data)
+        if roadVehicle_serializer.is_valid():
+            roadVehicle_serializer.save()
+            roadVehicle_serializer = VehicleSerializer()
+            return Response(roadVehicle_serializer.data, status=201)
+        return Response(roadVehicle_serializer.errors, status=400)
 
     @api_view(['POST'])
     def postRoutes(request):
