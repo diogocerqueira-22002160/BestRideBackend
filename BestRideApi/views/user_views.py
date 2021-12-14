@@ -53,7 +53,7 @@ class user_operations(APIView):
 
     @api_view(['POST'])
     def resend_code(request):
-        boto3.setup_default_session(region_name='eu-west-2')
+        boto3.setup_default_session(region_name=env.str('REGION_NAME_DEFAULT'))
         client = boto3.client('cognito-idp')
 
         try:
