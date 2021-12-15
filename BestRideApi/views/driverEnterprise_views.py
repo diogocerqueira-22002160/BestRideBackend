@@ -257,7 +257,7 @@ class DriverEnterpriseCognito:
         cidp = boto3.client('cognito-idp')
         try:
             login_request = cidp.initiate_auth(
-                ClientId=env.str('CLIENT_ID'),
+                ClientId=env.str('DriverEnterprise_CLIENT_ID'),
                 AuthFlow="USER_PASSWORD_AUTH",
                 AuthParameters={
                     'USERNAME': request.data['email'],
