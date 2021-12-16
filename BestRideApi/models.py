@@ -145,7 +145,9 @@ class RoadVehicle(models.Model):
 
 class Vehicle(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
+    matricula = models.CharField(max_length=100, blank=True, null=True)
     max_cap = models.CharField(max_length=100, blank=True, null=True)
+    image = models.CharField(max_length=4000, blank=True, null=True)
 
     class Meta:
         db_table = 'vehicle'

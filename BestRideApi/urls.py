@@ -40,7 +40,7 @@ urlpatterns = [
     path('getUserid/<str:email>/',user_views.Users.get),
     path('makePayment/',payments_views.Payments.make_payment),
     path('uploadImage/',views.Images.upload_file),
-    path('postRoute/', routes_views.Routes.postRoutes),
+    path('createRoute/', routes_views.Routes.postRoutes),
 
     # Driver Urls
     path('loginDriver/', driver_views.CognitoDriver.login),
