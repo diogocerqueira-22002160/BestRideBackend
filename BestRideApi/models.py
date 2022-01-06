@@ -129,6 +129,7 @@ class RoadMap(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
     location = models.GeometryField(blank=True, null=True)
     city_id = models.OneToOneField(City, models.DO_NOTHING, db_column='city_id')
+    enterprise = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         db_table = 'road_map'
@@ -144,10 +145,11 @@ class RoadVehicle(models.Model):
 
 
 class Vehicle(models.Model):
-    name = models.CharField(max_length=100, blank=True, null=True)
-    matricula = models.CharField(max_length=100, blank=True, null=True)
-    max_cap = models.CharField(max_length=100, blank=True, null=True)
+    title = models.CharField(max_length=100, blank=True, null=True, primary_key=True)
+    seats = models.IntegerField(db_column='seats')
+    description = models.CharField(max_length=255, blank=True, null=True)
     image = models.CharField(max_length=4000, blank=True, null=True)
+    enterprise = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         db_table = 'vehicle'
