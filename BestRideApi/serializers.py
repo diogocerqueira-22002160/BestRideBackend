@@ -26,6 +26,15 @@ class EmpresaDriverSerializer(serializers.ModelSerializer):
         model = EmpresaDriver
         fields = '__all__'
 
+
+class FKDriverEnterpriseSerializer(serializers.ModelSerializer):
+    driver = DriverSerializer(read_only=True)
+    empresaDriver = EmpresaDriverSerializer(read_only=True)
+
+    class Meta:
+        model = FKDriverEnterprise
+        fields = '__all__'
+
 class InterestPointsSerializaer(serializers.ModelSerializer):
     class Meta:
         model = PointInterest

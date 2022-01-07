@@ -201,7 +201,7 @@ class DriverEnterpriseCognito:
 
     @api_view(['POST'])
     def create_account(request):
-        boto3.setup_default_session(region_name=env.str('REGION_NAME_DEFAULT'))
+        boto3.setup_default_session(region_name=env.str('DRIVER_POOL_ID'))
         client = boto3.client('cognito-idp')
         try:
             response_sign_up = client.sign_up(
@@ -296,5 +296,11 @@ class DriverEnterprise:
     @api_view(['GET'])
     def getDriverEmpresa(request):
         queryset = EmpresaDriver.objects.all()
+        serialzer_class = EmpresaDriverSerializer(queryset, many=True)
+        return Response(serialzer_class.data)
+
+    @api_view(['GET'])
+    def getDriverEmpresa(request, name):
+        queryset = EmpresaDriver.objects.all().filter(name=name)
         serialzer_class = EmpresaDriverSerializer(queryset, many=True)
         return Response(serialzer_class.data)

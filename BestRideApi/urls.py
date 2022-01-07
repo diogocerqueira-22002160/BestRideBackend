@@ -61,6 +61,8 @@ urlpatterns = [
     path('postDriver/', driver_views.ViewsDriver.postDriver),
     path('getDriver/<str:email>', driver_views.ViewsDriver.getDriver),
     path('postEmergencyContact/', driver_views.ViewsDriver.postEmergencycontact),
+    path('postFKDriverEnterprise/', driver_views.ViewsDriver.postFkDrivertoEnterprise),
+    path('getFKDriverEnterprise', driver_views.ViewsDriver.getFkDrivertoEnterprise),
 
 
     path('loginEnterprise/', driverEnterprise_views.DriverEnterpriseCognito.login),
@@ -78,6 +80,7 @@ urlpatterns = [
     path('resend_codeDriverEnterprise/',driverEnterprise_views.DriverEnterpriseCognito.resend_code),
     path('cancelAccountDriverEnterprise/',driverEnterprise_views.DriverEnterpriseCognito.cancelAccount),
 
-    path('create_driverEmpresa/', driverEnterprise_views.DriverEnterprise.postDriverEmpresa),
-    path('getDriverEmpresa/',  driverEnterprise_views.DriverEnterprise.getDriverEmpresa),
+    path('createEmpresa/', driverEnterprise_views.DriverEnterprise.postDriverEmpresa),
+    path('getEmpresa/',  driverEnterprise_views.DriverEnterprise.getDriverEmpresa),
+    path('getEmpresaId/<str:name>',  driverEnterprise_views.DriverEnterprise.getDriverEmpresa),
 ]

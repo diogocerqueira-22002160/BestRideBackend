@@ -117,11 +117,11 @@ class CognitoDriver():
                 Password=request.data['password'],
                 UserAttributes=[
                     {
-                        'Name': "Name",
+                        'Name': "custom:Name",
                         'Value': request.data['name']
                     },
                     {
-                        'Name': "Birth",
+                        'Name': "custom:Birth",
                         'Value': request.data['dob']
                     },
                     {
@@ -129,78 +129,65 @@ class CognitoDriver():
                         'Value': request.data['email']
                     },
                     {
-                        'Name': "Gender",
+                        'Name': "custom:Gender",
                         'Value': request.data['gender']
                     },
                     {
-                        'Name': "Adress",
+                        'Name': "custom:Adress",
                         'Value': request.data['adress']
                     },
                     {
-                        'Name': "City",
+                        'Name': "custom:City",
                         'Value': request.data['city']
                     },
                     {
-                        'Name': "PostalCode",
+                        'Name': "custom:PostalCode",
                         'Value': request.data['PostalCode']
                     },
                     {
-                        'Name': "Country",
+                        'Name': "custom:Country",
                         'Value': request.data['Country']
                     },
                     {
-                        'Name': "NIF",
+                        'Name': "custom:NIF",
                         'Value': request.data['NIF']
                     },
                     {
-                        'Name': "RNATLicense",
+                        'Name': "custom:RNATLicense",
                         'Value': request.data['RNATLicense']
                     },
                     {
-                        'Name': "DriverLicense",
+                        'Name': "custom:DriverLicense",
                         'Value': request.data['DriverLicense']
                     },
                     {
-                        'Name': "Phone",
+                        'Name': "custom:Phone",
                         'Value': request.data['Phone']
                     },
                     {
-                        'Name': "Nationality",
+                        'Name': "custom:Nationality",
                         'Value': request.data['Nationality']
                     },
                     {
-                        'Name': "CitizenCard",
+                        'Name': "custom:CitizenCard",
                         'Value': request.data['CitizenCard']
                     },
                     {
-                        'Name': "ANCATNumber",
+                        'Name': "custom:ANCATNumber",
                         'Value': request.data['ANCATNumber']
                     },
                     {
-                        'Name': "IBAN",
+                        'Name': "custom:IBAN",
                         'Value': request.data['IBAN']
                     },
                     {
-                        'Name': "Image",
+                        'Name': "custom:Image",
                         'Value': request.data['Image']
                     },
                 ],
             )
 
-            response_confirm = client.admin_confirm_sign_up(
-                UserPoolId=env.str('USER_POOL_ID'),
-                Username=request.data['email'],
-            )
-
-            response_login = client.initiate_auth(
-                ClientId=env.str("Driver_CLIENT_ID"),
-                AuthFlow="USER_PASSWORD_AUTH",
-                AuthParameters={
-                    "USERNAME": request.data['email'],
-                    "PASSWORD": request.data['password']
-                },
-            )
-            return JsonResponse(response_login)
+            return JsonResponse(response_sign_up)
 
         except client.exceptions.InvalidPasswordException:
             return Response("Invalid Password Format",status=status.HTTP_404_NOT_FOUND)
@@ -397,3 +384,18 @@ class ViewsDriver():
             emergencyContact_result = EmergencyContactDriverSerializer()
             return Response(emergencyContact_result.data, status=201)
         return Response(emergencyContact_serializer.errors, status=400)
+
+    @api_view(['POST'])
+    def postFkDrivertoEnterprise(request):
+        fkDriverEnterprise_serializer = FKDriverEnterpriseSerializer(data=request.data)
+        if fkDriverEnterprise_serializer.is_valid():
+            fkDriverEnterprise_serializer.save()
+            fkDriverEnterprise_result = FKDriverEnterpriseSerializer()
+            return Response(fkDriverEnterprise_result.data, status=201)
+        return Response(fkDriverEnterprise_serializer.errors, status=400)
+
+    @api_view(['GET'])
+    def getFkDrivertoEnterprise(request):
+        queryset = FKDriverEnterprise.objects.all().filter()
+        serialzer_class = FKDriverEnterpriseSerializer(queryset, many=True)
+        return Response(serialzer_class.data)

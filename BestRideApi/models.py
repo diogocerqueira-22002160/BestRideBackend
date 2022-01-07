@@ -86,6 +86,13 @@ class Driver(models.Model):
     class Meta:
         db_table = 'Driver'
 
+class FKDriverEnterprise(models.Model):
+    Enterprise = models.ForeignKey('EmpresaDriver', models.DO_NOTHING, db_column='enterprise', null=True)
+    Driver = models.ForeignKey('Driver', models.DO_NOTHING, db_column='driver', null=True)
+
+    class Meta:
+        db_table = 'FKDriverEnterprise'
+
 class EmpresaDriver(models.Model):
     idEmpresaDriver = models.AutoField(db_column='idEmpresaDriver', primary_key=True)  # Field name made lowercase.
     name = models.CharField(max_length=50, blank=True, null=True)
@@ -129,7 +136,7 @@ class RoadMap(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
     location = models.GeometryField(blank=True, null=True)
     city_id = models.OneToOneField(City, models.DO_NOTHING, db_column='city_id')
-    enterprise = models.CharField(max_length=100, blank=True, null=True)
+    enterprise = models.ForeignKey(EmpresaDriver, models.DO_NOTHING, db_column='enterprise', null=True)
 
     class Meta:
         db_table = 'road_map'
@@ -145,12 +152,11 @@ class RoadVehicle(models.Model):
 
 
 class Vehicle(models.Model):
-    idVehicle = models.AutoField(db_column='id', primary_key=True)
     title = models.CharField(max_length=100, blank=True, null=True)
-    seats = models.IntegerField(db_column='seats')
+    seats = models.IntegerField(db_column='seats', null=True)
     description = models.CharField(max_length=255, blank=True, null=True)
     image = models.CharField(max_length=4000, blank=True, null=True)
-    enterprise = models.CharField(max_length=100, blank=True, null=True)
+    enterprise = models.ForeignKey(EmpresaDriver, models.DO_NOTHING, db_column='enterprise', null=True)
 
     class Meta:
         db_table = 'vehicle'
