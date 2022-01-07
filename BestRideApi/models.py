@@ -145,7 +145,8 @@ class RoadVehicle(models.Model):
 
 
 class Vehicle(models.Model):
-    title = models.CharField(max_length=100, blank=True, null=True, primary_key=True)
+    idVehicle = models.AutoField(db_column='id', primary_key=True)
+    title = models.CharField(max_length=100, blank=True, null=True)
     seats = models.IntegerField(db_column='seats')
     description = models.CharField(max_length=255, blank=True, null=True)
     image = models.CharField(max_length=4000, blank=True, null=True)
