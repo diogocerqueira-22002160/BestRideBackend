@@ -201,7 +201,7 @@ class DriverEnterpriseCognito:
 
     @api_view(['POST'])
     def create_account(request):
-        boto3.setup_default_session(region_name=env.str('DRIVER_POOL_ID'))
+        boto3.setup_default_session(region_name=env.str('REGION_NAME_DEFAULT'))
         client = boto3.client('cognito-idp')
         try:
             response_sign_up = client.sign_up(
