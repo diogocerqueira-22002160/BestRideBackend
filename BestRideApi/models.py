@@ -95,9 +95,8 @@ class FKDriverEnterprise(models.Model):
 
 class EmpresaDriver(models.Model):
     idEmpresaDriver = models.AutoField(db_column='idEmpresaDriver', primary_key=True)  # Field name made lowercase.
-    name = models.CharField(max_length=50, blank=True, null=True)
+    email = models.CharField(max_length=50, blank=True, null=True)
     phone = models.CharField(max_length=15, blank=True, null=True)
-
 
     class Meta:
         db_table = 'EmpresaDriver'
@@ -107,15 +106,6 @@ class City(models.Model):
 
     class Meta:
         db_table = 'City'
-
-
-class ItinearyRoute(models.Model):
-    interest_points = models.ForeignKey(PointInterest, models.DO_NOTHING, db_column='interest_points')
-    road_map = models.ForeignKey('RoadMap', models.DO_NOTHING)
-
-    class Meta:
-        db_table = 'itineary_route'
-        unique_together = (('id', 'interest_points', 'road_map'),)
 
 
 class ItinearyRouteInterestPoints(models.Model):
@@ -136,6 +126,7 @@ class RoadMap(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
     location = models.GeometryField(blank=True, null=True)
     city_id = models.OneToOneField(City, models.DO_NOTHING, db_column='city_id')
+    interest_points = models.ForeignKey(PointInterest, models.DO_NOTHING, db_column='interest_points')
     enterprise = models.ForeignKey(EmpresaDriver, models.DO_NOTHING, db_column='enterprise', null=True)
 
     class Meta:

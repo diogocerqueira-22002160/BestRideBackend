@@ -15,7 +15,7 @@ class EmergencyContactDriverSerializer(serializers.ModelSerializer):
             fields = '__all__'
 
 class DriverSerializer(serializers.ModelSerializer):
-    emergencyContactDrive = EmergencyContactDriverSerializer(read_only=True)
+    emergencyContactDrive = EmergencyContactDriverSerializer()
 
     class Meta:
         model = Driver
@@ -48,6 +48,7 @@ class CitySerializer(serializers.ModelSerializer):
 
 class RoadMapSerializer(serializers.ModelSerializer):
     city_id = CitySerializer(read_only=True)
+    interest_points = InterestPointsSerializaer(many=True)
     class Meta:
         model = RoadMap
         geo_field = "point"
@@ -64,13 +65,6 @@ class RoadVehicleSerializer(serializers.ModelSerializer):
     class Meta:
         model = RoadVehicle
         fields = '__all__'
-
-
-class ItinearyRouteSerializer(serializers.ModelSerializer):
-    interest_points = InterestPointsSerializaer(read_only=True)
-    class Meta:
-        model = ItinearyRoute
-        fields = ('interest_points',)
 
 class CommentsSerializer(serializers.ModelSerializer):
     class Meta:

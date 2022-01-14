@@ -366,8 +366,7 @@ class ViewsDriver():
         driver_serializer = DriverSerializer(data=request.data)
         if driver_serializer.is_valid():
             driver_serializer.save()
-            driver_result = DriverSerializer()
-            return  Response(driver_result.data, status=201)
+            return  Response(driver_serializer.data, status=201)
         return Response(driver_serializer.errors, status=400)
 
     @api_view(['GET'])
@@ -381,8 +380,7 @@ class ViewsDriver():
         emergencyContact_serializer = EmergencyContactDriverSerializer(data=request.data)
         if emergencyContact_serializer.is_valid():
             emergencyContact_serializer.save()
-            emergencyContact_result = EmergencyContactDriverSerializer()
-            return Response(emergencyContact_result.data, status=201)
+            return Response(emergencyContact_serializer.data, status=201)
         return Response(emergencyContact_serializer.errors, status=400)
 
     @api_view(['POST'])
@@ -390,8 +388,7 @@ class ViewsDriver():
         fkDriverEnterprise_serializer = FKDriverEnterpriseSerializer(data=request.data)
         if fkDriverEnterprise_serializer.is_valid():
             fkDriverEnterprise_serializer.save()
-            fkDriverEnterprise_result = FKDriverEnterpriseSerializer()
-            return Response(fkDriverEnterprise_result.data, status=201)
+            return Response(fkDriverEnterprise_serializer.data, status=201)
         return Response(fkDriverEnterprise_serializer.errors, status=400)
 
     @api_view(['GET'])

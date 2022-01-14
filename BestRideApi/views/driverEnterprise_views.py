@@ -289,8 +289,7 @@ class DriverEnterprise:
         driver_serializer = EmpresaDriverSerializer(data=request.data)
         if driver_serializer.is_valid():
             driver_serializer.save()
-            driver_result = EmpresaDriverSerializer()
-            return Response(driver_result.data, status=201)
+            return Response(driver_serializer.data, status=201)
         return Response(driver_serializer.errors, status=400)
 
     @api_view(['GET'])
@@ -300,7 +299,7 @@ class DriverEnterprise:
         return Response(serialzer_class.data)
 
     @api_view(['GET'])
-    def getDriverEmpresa(request, name):
-        queryset = EmpresaDriver.objects.all().filter(name=name)
+    def getDriverEmpresa(request, email):
+        queryset = EmpresaDriver.objects.all().filter(name=email)
         serialzer_class = EmpresaDriverSerializer(queryset, many=True)
         return Response(serialzer_class.data)

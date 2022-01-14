@@ -82,5 +82,5 @@ urlpatterns = [
 
     path('createEmpresa/', driverEnterprise_views.DriverEnterprise.postDriverEmpresa),
     path('getEmpresa/',  driverEnterprise_views.DriverEnterprise.getDriverEmpresa),
-    path('getEmpresaId/<str:name>',  driverEnterprise_views.DriverEnterprise.getDriverEmpresa),
+    path('getEmpresaId/<str:email>',  driverEnterprise_views.DriverEnterprise.getDriverEmpresa),
 ]
