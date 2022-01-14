@@ -116,8 +116,7 @@ class Routes(APIView):
         pointInterestSerializer = InterestPointsSerializaer(data=request.data)
         if pointInterestSerializer.is_valid():
             pointInterestSerializer.save()
-            emergencyContact_result = EmergencyContactDriverSerializer()
-            return Response(emergencyContact_result.data, status=201)
+            return Response(pointInterestSerializer.data, status=201)
         return Response(pointInterestSerializer.errors, status=400)
 
     @api_view(['GET'])
@@ -169,7 +168,6 @@ class Routes(APIView):
         roadVehicle_serializer = VehicleSerializer(data=request.data)
         if roadVehicle_serializer.is_valid():
             roadVehicle_serializer.save()
-            roadVehicle_serializer = VehicleSerializer()
             return Response(roadVehicle_serializer.data, status=201)
         return Response(roadVehicle_serializer.errors, status=400)
 
@@ -178,8 +176,7 @@ class Routes(APIView):
         route_serializer = RoadMapSerializer(data=request.data)
         if route_serializer.is_valid():
             route_serializer.save()
-            route_result = RoadMapSerializer()
-            return Response(route_result.data, status=201)
+            return Response(route_serializer.data, status=201)
         return Response(route_serializer.errors, status=400)
 
 
