@@ -300,6 +300,6 @@ class DriverEnterprise:
 
     @api_view(['GET'])
     def getDriverEmpresa(request, email):
-        queryset = EmpresaDriver.objects.all().filter(name=email)
+        queryset = EmpresaDriver.objects.all().filter(email=email)
         serialzer_class = EmpresaDriverSerializer(queryset, many=True)
         return Response(serialzer_class.data)
