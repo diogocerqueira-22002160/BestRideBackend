@@ -93,6 +93,25 @@ class Routes(APIView):
         return Response(roadMapSerializer.data)
 
     @api_view(['GET'])
+    def roadMapByEnterprise(request, enterprise):
+        boto3.setup_default_session(region_name='us-east-2')
+        s3_client = boto3.client('s3')
+        roadMap = RoadMap.objects.filter(enterprise=enterprise)
+
+        try:
+            for point in roadMap:
+                response = s3_client.generate_presigned_url('get_object',
+                                                            Params={'Bucket': 'bestridebucket',
+                                                                    'Key': '' + point.image},
+                                                            ExpiresIn=3200)
+                point.image = response
+        except ClientError as e:
+            logging.error(e)
+
+        roadMapSerializer = RoadMapSerializer(roadMap, many=True)
+        return Response(roadMapSerializer.data)
+
+    @api_view(['GET'])
     def getPointsInterest(request):
         boto3.setup_default_session(region_name='us-east-2')
         s3_client = boto3.client('s3')
@@ -170,6 +189,12 @@ class Routes(APIView):
             roadVehicle_serializer.save()
             return Response(roadVehicle_serializer.data, status=201)
         return Response(roadVehicle_serializer.errors, status=400)
+
+    @api_view(['GET'])
+    def getVehiclesEnterprise(request, enterprise):
+        vehicles = Vehicle.objects.all().filter(enterprise=enterprise)
+        vehicleSerializer = VehicleSerializer(vehicles, many=True)
+        return Response(vehicleSerializer.data)
 
     @api_view(['POST'])
     def postRoutes(request):
