@@ -21,6 +21,7 @@ urlpatterns = [
     path('translate/', views.TranslateAWS.translate),
     path('itineary/showItineary/<int:id>',routes_views.Routes.getItineary),
     path('showRoadMapsCity/<str:city>',routes_views.Routes.roadMapByCity),
+    path('getRoadMapsByEnterprise/<int:enterprise>', routes_views.Routes.roadMapByEnterprise),
     path('itineray/showRoadVehicles/<int:id>',routes_views.Routes.getRoadVehicle),
     path('itineary/showRoadMap',routes_views.Routes.getRoadMap),
     path('itineary/showInterestPoints',routes_views.Routes.getPointsInterest),

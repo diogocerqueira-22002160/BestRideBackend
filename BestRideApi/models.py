@@ -126,7 +126,6 @@ class RoadMap(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
     location = models.GeometryField(blank=True, null=True)
     city_id = models.OneToOneField(City, models.DO_NOTHING, db_column='city_id')
-    interest_points = models.ForeignKey(PointInterest, models.DO_NOTHING, db_column='interest_points')
     enterprise = models.ForeignKey(EmpresaDriver, models.DO_NOTHING, db_column='enterprise', null=True)
 
     class Meta:
