@@ -284,6 +284,6 @@ class Users(generics.RetrieveDestroyAPIView):
 
     @api_view(['DELETE'])
     def delete(request,id):
-        queryset = User.objects.get(id=id)
+        queryset = User.objects.get(iduser=id)
         queryset.delete()
         return Response("User eliminado")
