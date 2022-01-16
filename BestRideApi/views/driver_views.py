@@ -398,7 +398,7 @@ class ViewsDriver():
         return Response(serialzer_class.data)
 
     @api_view(['DELETE'])
-    def delete(request,email):
-        queryset = User.objects.get(email=email)
+    def delete(request,id):
+        queryset = User.objects.get(id=id)
         queryset.delete()
         return Response("User eliminado")
