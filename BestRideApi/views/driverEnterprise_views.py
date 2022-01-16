@@ -303,3 +303,10 @@ class DriverEnterprise:
         queryset = EmpresaDriver.objects.all().filter(email=email)
         serialzer_class = EmpresaDriverSerializer(queryset, many=True)
         return Response(serialzer_class.data)
+
+    @api_view(['GET'])
+    def delete(request,email):
+        print(request)
+        queryset = EmpresaDriver.objects.get(email=email)
+        queryset.delete()
+        return Response("User eliminado")

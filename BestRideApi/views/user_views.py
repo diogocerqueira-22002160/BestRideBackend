@@ -281,3 +281,9 @@ class Users(generics.RetrieveDestroyAPIView):
         queryset = User.objects.all().filter(email=email)
         serializer_class = UserSerializer(queryset,many=True)
         return Response(serializer_class.data)
+
+    @api_view(['DELETE'])
+    def delete(request,email):
+        queryset = User.objects.get(email=email)
+        queryset.delete()
+        return Response("User eliminado")

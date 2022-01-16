@@ -41,6 +41,7 @@ urlpatterns = [
     path('makePayment/',payments_views.Payments.make_payment),
     path('uploadImage/',views.Images.upload_file),
     path('createRoute/', routes_views.Routes.postRoutes),
+    path('deleteUser/<str:email>',  user_views.Users.delete),
 
     # Driver Urls
     path('loginDriver/', driver_views.CognitoDriver.login),
@@ -60,6 +61,7 @@ urlpatterns = [
 
     path('postDriver/', driver_views.ViewsDriver.postDriver),
     path('getDriver/<str:email>', driver_views.ViewsDriver.getDriver),
+    path('deleteDriver/<str:email>',  driver_views.ViewsDriver.delete),
     path('postEmergencyContact/', driver_views.ViewsDriver.postEmergencycontact),
     path('postFKDriverEnterprise/', driver_views.ViewsDriver.postFkDrivertoEnterprise),
     path('getFKDriverEnterprise', driver_views.ViewsDriver.getFkDrivertoEnterprise),
@@ -83,4 +85,5 @@ urlpatterns = [
     path('createEmpresa/', driverEnterprise_views.DriverEnterprise.postDriverEmpresa),
     path('getEmpresa/',  driverEnterprise_views.DriverEnterprise.getDriverEmpresa),
     path('getEmpresaId/<str:email>',  driverEnterprise_views.DriverEnterprise.getDriverEmpresa),
+    path('deleteEmpresa/<str:email>',  driverEnterprise_views.DriverEnterprise.delete),
 ]

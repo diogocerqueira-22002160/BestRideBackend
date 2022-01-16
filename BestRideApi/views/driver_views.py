@@ -396,3 +396,9 @@ class ViewsDriver():
         queryset = FKDriverEnterprise.objects.all().filter()
         serialzer_class = FKDriverEnterpriseSerializer(queryset, many=True)
         return Response(serialzer_class.data)
+
+    @api_view(['DELETE'])
+    def delete(request,email):
+        queryset = User.objects.get(email=email)
+        queryset.delete()
+        return Response("User eliminado")
