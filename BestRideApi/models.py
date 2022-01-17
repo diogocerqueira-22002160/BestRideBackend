@@ -102,6 +102,7 @@ class EmpresaDriver(models.Model):
         db_table = 'EmpresaDriver'
 
 class City(models.Model):
+    id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
@@ -125,7 +126,7 @@ class RoadMap(models.Model):
     image = models.CharField(max_length=322, blank=True, null=True)
     title = models.CharField(max_length=100, blank=True, null=True)
     location = models.GeometryField(blank=True, null=True)
-    city_id = models.OneToOneField(City, models.DO_NOTHING, db_column='city_id')
+    city_id = models.ForeignKey('City', models.DO_NOTHING, db_column='city_id', null=False)
     enterprise = models.ForeignKey(EmpresaDriver, models.DO_NOTHING, db_column='enterprise', null=True)
 
     class Meta:
