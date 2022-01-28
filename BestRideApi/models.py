@@ -128,6 +128,7 @@ class RoadMap(models.Model):
     location = models.GeometryField(blank=True, null=True)
     city_id = models.ForeignKey('City', models.DO_NOTHING, db_column='city_id', null=False)
     enterprise = models.ForeignKey(EmpresaDriver, models.DO_NOTHING, db_column='enterprise', null=True)
+    driver = models.ForeignKey(Driver, models.DO_NOTHING, db_column='driver', null=True)
 
     class Meta:
         db_table = 'road_map'
@@ -143,11 +144,12 @@ class RoadVehicle(models.Model):
 
 
 class Vehicle(models.Model):
-    title = models.CharField(max_length=100, blank=True, null=True)
-    seats = models.IntegerField(db_column='seats', null=True)
+    title = models.CharField(max_length=100, blank=True)
+    seats = models.IntegerField(db_column='seats')
     description = models.CharField(max_length=255, blank=True, null=True)
     image = models.CharField(max_length=4000, blank=True, null=True)
-    enterprise = models.ForeignKey(EmpresaDriver, models.DO_NOTHING, db_column='enterprise', null=True)
+    registration = models.CharField(max_length=255, blank=True)
+    enterprise = models.ForeignKey(EmpresaDriver, models.DO_NOTHING, db_column='enterprise')
 
     class Meta:
         db_table = 'vehicle'

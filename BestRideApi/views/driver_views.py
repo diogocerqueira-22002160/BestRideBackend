@@ -399,6 +399,6 @@ class ViewsDriver():
 
     @api_view(['DELETE'])
     def delete(request,id):
-        queryset = User.objects.get(idDriver=id)
+        queryset = Driver.objects.get(idDriver=id)
         queryset.delete()
-        return Response("User eliminado")
+        return Response("Driver eliminado")

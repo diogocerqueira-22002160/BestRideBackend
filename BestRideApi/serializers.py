@@ -47,7 +47,7 @@ class CitySerializer(serializers.ModelSerializer):
 
 
 class RoadMapSerializer(serializers.ModelSerializer):
-    city_id = City()
+    city_id = CitySerializer()
 
     class Meta:
         model = RoadMap

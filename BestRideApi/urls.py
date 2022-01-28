@@ -28,6 +28,7 @@ urlpatterns = [
     path('itineary/distance/',routes_views.Routes.distance),
     path('getVehicle', routes_views.Routes.getVehicles),
     path('postVehicle', routes_views.Routes.postVehicle),
+    path('deleteVehicle/<int:id>',  routes_views.Routes.deleteVehicle),
     path('getVehicleByEnterprise/<int:enterprise>', routes_views.Routes.getVehiclesEnterprise),
     path('getComments/<int:id>', comment_views.Comment.getComments),
     path('postComments/', comment_views.Comment.postComments),

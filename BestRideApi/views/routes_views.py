@@ -190,6 +190,18 @@ class Routes(APIView):
             return Response(roadVehicle_serializer.data, status=201)
         return Response(roadVehicle_serializer.errors, status=400)
 
+    @api_view(['DELETE'])
+    def deleteVehicle(request, id):
+        queryset = Vehicle.objects.get(id=id)
+        queryset.delete()
+        return Response("User eliminado")
+
+    @api_view(['UPDATE'])
+    def updateVehicle(request):
+        queryset = Vehicle.objects.get(idDriver=id)
+        queryset.delete()
+        return Response("Veiculo eliminado")
+
     @api_view(['GET'])
     def getVehiclesEnterprise(request, enterprise):
         vehicles = Vehicle.objects.all().filter(enterprise=enterprise)
