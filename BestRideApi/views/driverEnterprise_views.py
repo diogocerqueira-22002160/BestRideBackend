@@ -306,7 +306,6 @@ class DriverEnterprise:
 
     @api_view(['GET'])
     def delete(request,id):
-        print(request)
         queryset = EmpresaDriver.objects.get(idEmpresaDriver=id)
         queryset.delete()
         return Response("User eliminado")

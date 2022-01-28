@@ -102,7 +102,7 @@ class EmpresaDriver(models.Model):
         db_table = 'EmpresaDriver'
 
 class City(models.Model):
-    id = models.BigAutoField(primary_key=True)
+    id = models.BigAutoField(db_column='id', primary_key=True)
     name = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
@@ -110,7 +110,7 @@ class City(models.Model):
 
 
 class ItinearyRouteInterestPoints(models.Model):
-    id = models.BigAutoField(primary_key=True)
+    id = models.BigAutoField(db_column='id',primary_key=True)
     itinearyroute_id = models.IntegerField()
     pointinterest_id = models.IntegerField()
 

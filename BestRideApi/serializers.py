@@ -1,18 +1,24 @@
 from django.core.serializers import serialize
 from rest_framework import serializers
+from sqlparse.tokens import Assignment
+
 from .models import *
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = User
         fields = '__all__'
 
+
 class EmergencyContactDriverSerializer(serializers.ModelSerializer):
+
     class Meta:
             model = EmergencyContactDriver
             fields = '__all__'
+
 
 class DriverSerializer(serializers.ModelSerializer):
     emergencyContactDrive = EmergencyContactDriverSerializer()
@@ -20,6 +26,7 @@ class DriverSerializer(serializers.ModelSerializer):
     class Meta:
         model = Driver
         fields = '__all__'
+
 
 class EmpresaDriverSerializer(serializers.ModelSerializer):
     class Meta:
@@ -35,19 +42,21 @@ class FKDriverEnterpriseSerializer(serializers.ModelSerializer):
         model = FKDriverEnterprise
         fields = '__all__'
 
+
 class InterestPointsSerializaer(serializers.ModelSerializer):
     class Meta:
         model = PointInterest
-        fields = ('__all__')
+        fields = '__all__'
+
 
 class CitySerializer(serializers.ModelSerializer):
+
     class Meta:
         model = City
         fields = '__all__'
 
 
 class RoadMapSerializer(serializers.ModelSerializer):
-    city_id = CitySerializer()
 
     class Meta:
         model = RoadMap
@@ -55,9 +64,11 @@ class RoadMapSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class VehicleSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Vehicle
         fields = '__all__'
+
 
 class RoadVehicleSerializer(serializers.ModelSerializer):
     vehicle = VehicleSerializer(many=False)
@@ -66,17 +77,23 @@ class RoadVehicleSerializer(serializers.ModelSerializer):
         model = RoadVehicle
         fields = '__all__'
 
+
 class CommentsSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Comments
         fields = '__all__'
 
+
 class TravelScheduleSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = TravelSchedule
         fields = '__all__'
 
+
 class TravelSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Travel
         fields = '__all__'
