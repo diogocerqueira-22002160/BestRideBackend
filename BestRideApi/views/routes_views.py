@@ -216,4 +216,10 @@ class Routes(APIView):
             return Response(route_serializer.data, status=201)
         return Response(route_serializer.errors, status=400)
 
+    @api_view(['DELETE'])
+    def delete(request, id):
+        queryset = RoadMap.objects.get(id=id)
+        queryset.delete()
+        return Response("Roteiro eliminado")
+
 

@@ -44,6 +44,7 @@ urlpatterns = [
     path('makePayment/',payments_views.Payments.make_payment),
     path('uploadImage/',views.Images.upload_file),
     path('createRoute/', routes_views.Routes.postRoutes),
+    path('deleteRoute/<int:id>', routes_views.Routes.delete),
     path('deleteUser/<int:id>',  user_views.Users.delete),
 
     # Driver Urls
