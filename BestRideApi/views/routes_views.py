@@ -94,20 +94,7 @@ class Routes(APIView):
 
     @api_view(['GET'])
     def roadMapByEnterprise(request, enterprise):
-        boto3.setup_default_session(region_name='us-east-2')
-        s3_client = boto3.client('s3')
-        roadMap = RoadMap.objects.filter(enterprise=enterprise)
-
-        try:
-            for point in roadMap:
-                response = s3_client.generate_presigned_url('get_object',
-                                                            Params={'Bucket': 'bestridebucket',
-                                                                    'Key': '' + point.image},
-                                                            ExpiresIn=3200)
-                point.image = response
-        except ClientError as e:
-            logging.error(e)
-
+        roadMap = RoadMap.objects.all().filter(enterprise=enterprise)
         roadMapSerializer = RoadMapSerializer(roadMap, many=True)
         return Response(roadMapSerializer.data)
 
