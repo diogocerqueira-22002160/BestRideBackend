@@ -190,6 +190,12 @@ class Routes(APIView):
         return Response("Veiculo eliminado")
 
     @api_view(['GET'])
+    def getVehiclesId(request, id):
+        vehicles = Vehicle.objects.all().filter(id=id)
+        vehicleSerializer = VehicleSerializer(vehicles, many=True)
+        return Response(vehicleSerializer.data)
+
+    @api_view(['GET'])
     def getVehiclesEnterprise(request, enterprise):
         vehicles = Vehicle.objects.all().filter(enterprise=enterprise)
         vehicleSerializer = VehicleSerializer(vehicles, many=True)

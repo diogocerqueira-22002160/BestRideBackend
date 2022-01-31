@@ -30,6 +30,7 @@ urlpatterns = [
     path('postVehicle', routes_views.Routes.postVehicle),
     path('deleteVehicle/<int:id>',  routes_views.Routes.deleteVehicle),
     path('getVehicleByEnterprise/<int:enterprise>', routes_views.Routes.getVehiclesEnterprise),
+    path('getVehicleById/<int:id>', routes_views.Routes.getVehiclesId),
     path('getComments/<int:id>', comment_views.Comment.getComments),
     path('postComments/', comment_views.Comment.postComments),
     path('getAverageComments/<int:id>', comment_views.Comment.getAverageComments),
