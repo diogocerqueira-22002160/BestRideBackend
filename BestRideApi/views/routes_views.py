@@ -99,6 +99,12 @@ class Routes(APIView):
         return Response(roadMapSerializer.data)
 
     @api_view(['GET'])
+    def roadMapById(request, id):
+        roadMap = RoadMap.objects.all().filter(id=id)
+        roadMapSerializer = RoadMapSerializer(roadMap, many=True)
+        return Response(roadMapSerializer.data)
+
+    @api_view(['GET'])
     def getPointsInterest(request):
         boto3.setup_default_session(region_name='us-east-2')
         s3_client = boto3.client('s3')
