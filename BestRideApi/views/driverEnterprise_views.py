@@ -127,15 +127,15 @@ class DriverEnterpriseCognito:
                         'Value': request.data['locale']
                     },
                     {
-                        'Name': "Coutry",
-                        'Value': request.data['coutry']
+                        'Name': "custom:country",
+                        'Value': request.data['country']
                     },
                     {
-                        'Name': "PostalCode",
-                        'Value': request.data['postalCode']
+                        'Name': "custom:postalcode",
+                        'Value': request.data['postalcode']
                     },
                     {
-                        'Name': "NIF",
+                        'Name': "custom:nif",
                         'Value': request.data['nif']
                     },
                     {
