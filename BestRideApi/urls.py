@@ -41,6 +41,7 @@ urlpatterns = [
     path('getRoadMapsById/<int:id>', routes_views.Routes.roadMapById),
     path('createRoute/', routes_views.Routes.postRoutes),
     path('deleteRoute/<int:id>', routes_views.Routes.delete),
+    path('updateRoadMap/<int:id>', routes_views.Routes.updateRoadMap),
 
     #Vehicle Urls
     path('getVehicle', routes_views.Routes.getVehicles),
@@ -48,6 +49,7 @@ urlpatterns = [
     path('deleteVehicle/<int:id>',  routes_views.Routes.deleteVehicle),
     path('getVehicleByEnterprise/<int:enterprise>', routes_views.Routes.getVehiclesEnterprise),
     path('getVehicleById/<int:id>', routes_views.Routes.getVehiclesId),
+    path('updateVehicle/<int:id>', routes_views.Routes.updateVehicle),
 
     #Comments Urls
     path('getComments/<int:id>', comment_views.Comment.getComments),

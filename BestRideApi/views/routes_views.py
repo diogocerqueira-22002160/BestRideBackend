@@ -189,11 +189,14 @@ class Routes(APIView):
         queryset.delete()
         return Response("User eliminado")
 
-    @api_view(['UPDATE'])
-    def updateVehicle(request):
-        queryset = Vehicle.objects.get(idDriver=id)
-        queryset.delete()
-        return Response("Veiculo eliminado")
+    @api_view(['PUT'])
+    def updateVehicle(request, id):
+        Vehicle.objects.get(id=id).delete()
+        roadVehicle_serializer = VehicleSerializer(data=request.data)
+        if roadVehicle_serializer.is_valid():
+            roadVehicle_serializer.save()
+            return Response(roadVehicle_serializer.data, status=201)
+        return Response(roadVehicle_serializer.errors, status=400)
 
     @api_view(['GET'])
     def getVehiclesId(request, id):
@@ -221,4 +224,13 @@ class Routes(APIView):
         queryset.delete()
         return Response("Roteiro eliminado")
 
+
+    @api_view(['PUT'])
+    def updateRoadMap(request, id):
+        RoadMap.objects.get(id=id).delete()
+        roadMap_serializer = RoadMapSerializer(data=request.data)
+        if roadMap_serializer.is_valid():
+            roadMap_serializer.save()
+            return Response(roadMap_serializer.data, status=201)
+        return Response(roadMap_serializer.errors, status=400)
 
