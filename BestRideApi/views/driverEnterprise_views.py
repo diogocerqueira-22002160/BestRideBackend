@@ -234,14 +234,24 @@ class DriverEnterpriseCognito:
                         'Value': request.data['nif']
                     },
                     {
+                        'Name': "custom:RNAT",
+                        'Value': request.data['rnat']
+                    },
+                    {
                         'Name': "phone_number",
                         'Value': request.data['phone_number']
                     },
                 ],
             )
 
+            jsonToDB = {
+                "email": request.data['email'],
+                "phone": request.data['phone_number']
+            }
 
-            return JsonResponse(response_sign_up)
+            respostaPostDriverEmpresa = DriverEnterprise.postDriverEmpresa(jsonToDB)
+
+            return JsonResponse(response_sign_up + "\n" + respostaPostDriverEmpresa)
 
         except client.exceptions.InvalidPasswordException:
             return Response("Invalid Password Format",status=status.HTTP_404_NOT_FOUND)
@@ -284,12 +294,12 @@ class DriverEnterpriseCognito:
 
 
 class DriverEnterprise:
-    @api_view(['POST'])
-    def postDriverEmpresa(request):
-        driver_serializer = EmpresaDriverSerializer(data=request.data)
+
+    def postDriverEmpresa(data):
+        driver_serializer = EmpresaDriverSerializer(data=data)
         if driver_serializer.is_valid():
             driver_serializer.save()
-            return Response(driver_serializer.data, status=201)
+            return driver_serializer.data
         return Response(driver_serializer.errors, status=400)
 
     @api_view(['GET'])

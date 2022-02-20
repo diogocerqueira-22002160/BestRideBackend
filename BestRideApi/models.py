@@ -129,7 +129,7 @@ class RoadMap(models.Model):
     city_id = models.ForeignKey('City', models.DO_NOTHING, db_column='city_id', null=False)
     enterprise = models.ForeignKey(EmpresaDriver, models.DO_NOTHING, db_column='enterprise', null=True)
     driver = models.ForeignKey(Driver, models.DO_NOTHING, db_column='driver', null=True)
-    arquivado = models.BooleanField(blank=True, null=True, default=False)
+    arquivado = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         db_table = 'road_map'
@@ -151,6 +151,7 @@ class Vehicle(models.Model):
     image = models.CharField(max_length=4000, blank=True, null=True)
     registration = models.CharField(max_length=255, blank=True)
     enterprise = models.ForeignKey(EmpresaDriver, models.DO_NOTHING, db_column='enterprise')
+    arquivado = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         db_table = 'vehicle'

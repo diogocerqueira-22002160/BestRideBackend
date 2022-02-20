@@ -187,7 +187,24 @@ class CognitoDriver():
                 ],
             )
 
-            return JsonResponse(response_sign_up)
+            jsonToDB = {
+                "email": request.data['email'],
+                "image": request.data['image'],
+                "specialNeedSupport": request.data['specialNeedSupport'],
+                "languages": request.data['languages'],
+                "availableHours": request.data['availableHours'],
+                "courseTaken": request.data['courseTaken'],
+                "emergencyContact": request.data['emergencyContact'],
+                "typeGuide": request.data['typeGuide'],
+                "about": request.data['about'],
+                "vehiclesCanDrive": request.data['vehiclesCanDrive'],
+                "video": request.data['video'],
+                "startActivity": request.data['startActivity'],
+            }
+
+            respostaPostDriver = ViewsDriver.postDriver(jsonToDB)
+
+            return JsonResponse(response_sign_up + "\n" + respostaPostDriver)
 
         except client.exceptions.InvalidPasswordException:
             return Response("Invalid Password Format",status=status.HTTP_404_NOT_FOUND)
@@ -361,9 +378,8 @@ class CognitoDriver():
         return Response(response)
 
 class ViewsDriver():
-    @api_view(['POST'])
-    def postDriver(request):
-        driver_serializer = DriverSerializer(data=request.data)
+    def postDriver(data):
+        driver_serializer = DriverSerializer(data=data)
         if driver_serializer.is_valid():
             driver_serializer.save()
             return  Response(driver_serializer.data, status=201)

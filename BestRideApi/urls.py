@@ -90,7 +90,6 @@ urlpatterns = [
     path('cancelAccountDriver/',driver_views.CognitoDriver.cancelAccount),
 
     # Driver RDS Urls
-    path('postDriver/', driver_views.ViewsDriver.postDriver),
     path('getDriver/<str:email>', driver_views.ViewsDriver.getDriver),
     path('deleteDriver/<int:id>',  driver_views.ViewsDriver.delete),
     path('postEmergencyContact/', driver_views.ViewsDriver.postEmergencycontact),
@@ -116,7 +115,6 @@ urlpatterns = [
     path('cancelAccountDriverEnterprise/',driverEnterprise_views.DriverEnterpriseCognito.cancelAccount),
 
     # Driver RDS Cognito Urls
-    path('createEmpresa/', driverEnterprise_views.DriverEnterprise.postDriverEmpresa),
     path('getEmpresa/',  driverEnterprise_views.DriverEnterprise.getDriverEmpresa),
     path('getEmpresaId/<str:email>',  driverEnterprise_views.DriverEnterprise.getDriverEmpresa),
     path('deleteEmpresa/<int:id>',  driverEnterprise_views.DriverEnterprise.delete),

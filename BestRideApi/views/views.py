@@ -34,14 +34,13 @@ class Images:
         """
 
         # If S3 object_name was not specified, use file_name
-        if request.data['object_name'] is None:
-            object_name = os.path.basename(request.data['file_name'])
+        object_name = os.path.basename(request.data['file_name'])
 
         # Upload the file
         s3_client = boto3.client('s3')
 
         try:
-            response = s3_client.upload_file(request.data['file_name'], request.data['bucket'], request.data['object_name'])
+            response = s3_client.upload_file(request.data['file_name'], "bestridebucket", object_name)
         except ClientError as e:
             logging.error(e)
             return False
