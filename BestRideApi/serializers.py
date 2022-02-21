@@ -58,7 +58,6 @@ class CitySerializer(serializers.ModelSerializer):
 
 
 class RoadMapSerializer(serializers.ModelSerializer):
-    pointInterest = InterestPointsSerializaer(many=True)
 
     class Meta:
         model = RoadMap

@@ -162,7 +162,6 @@ class PointInterest(models.Model):
     description = models.CharField(max_length=45, blank=True, null=True)
     location = models.GeometryField(blank=True, null=True)
     image = models.CharField(max_length=322, blank=True, null=True)
-    roadMap = models.ForeignKey(RoadMap, on_delete=models.CASCADE, related_name='roadMap', null=True, blank=True, db_column="road_map_id")
 
     class Meta:
         db_table = 'Point_Interest'
