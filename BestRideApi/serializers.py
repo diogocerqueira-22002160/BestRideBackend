@@ -46,6 +46,7 @@ class FKDriverEnterpriseSerializer(serializers.ModelSerializer):
 class InterestPointsSerializaer(serializers.ModelSerializer):
     class Meta:
         model = PointInterest
+        geo_field = "point"
         fields = '__all__'
 
 
@@ -57,11 +58,19 @@ class CitySerializer(serializers.ModelSerializer):
 
 
 class RoadMapSerializer(serializers.ModelSerializer):
+    pointInterest = InterestPointsSerializaer(many=True)
 
     class Meta:
         model = RoadMap
         geo_field = "point"
         fields = '__all__'
+
+    ##def create(self, validated_data):
+        ##  pointInterests_data = validated_data.pop('pointInterest')
+        ##roadMap = RoadMap.objects.create(**validated_data)
+        ##for pointInterest in pointInterests_data:
+        ##    PointInterest.objects.create(roadMap=roadMap, **pointInterest)
+        ##return roadMap
 
 class VehicleSerializer(serializers.ModelSerializer):
 

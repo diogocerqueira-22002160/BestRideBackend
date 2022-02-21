@@ -39,17 +39,6 @@ class TravelSchedule(models.Model):
     class Meta:
         db_table = 'TravelSchedule'
 
-
-class PointInterest(models.Model):
-    idpercurso = models.AutoField(db_column='idPercurso', primary_key=True)  # Field name made lowercase.
-    description = models.CharField(max_length=45, blank=True, null=True)
-    location = models.GeometryField(blank=True, null=True)
-    image = models.CharField(max_length=322, blank=True, null=True)
-
-    class Meta:
-        db_table = 'Point_Interest'
-
-
 class User(models.Model):
     iduser = models.AutoField(db_column='idUser', primary_key=True)  # Field name made lowercase.
     email = models.CharField(max_length=255, blank=True, null=True)
@@ -131,6 +120,7 @@ class RoadMap(models.Model):
     driver = models.ForeignKey(Driver, models.DO_NOTHING, db_column='driver', null=True)
     arquivado = models.CharField(max_length=100, blank=True, null=True)
 
+
     class Meta:
         db_table = 'road_map'
 
@@ -165,3 +155,14 @@ class Comments(models.Model):
 
     class Meta:
         db_table = 'comments'
+
+
+class PointInterest(models.Model):
+    idpercurso = models.AutoField(db_column='idPercurso', primary_key=True)  # Field name made lowercase.
+    description = models.CharField(max_length=45, blank=True, null=True)
+    location = models.GeometryField(blank=True, null=True)
+    image = models.CharField(max_length=322, blank=True, null=True)
+    roadMap = models.ForeignKey(RoadMap, on_delete=models.CASCADE, related_name='roadMap', null=True, blank=True, db_column="road_map_id")
+
+    class Meta:
+        db_table = 'Point_Interest'

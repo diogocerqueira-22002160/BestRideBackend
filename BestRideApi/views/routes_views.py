@@ -138,29 +138,6 @@ class Routes(APIView):
         return Response(pointsInterest.data)
 
     @api_view(['GET'])
-    def getItineary(request,id):
-        if id:
-            Itineary = ItinearyRoute.objects.filter(road_map=id)
-            boto3.setup_default_session(region_name='us-east-2')
-            s3_client = boto3.client('s3')
-
-            try:
-                for ip in Itineary:
-                    response = s3_client.generate_presigned_url('get_object',
-                                                                Params={'Bucket': 'bestridebucket',
-                                                                        'Key': '' + ip.interest_points.image},
-                                                                ExpiresIn=3200)
-                    ip.interest_points.image = response
-            except ClientError as e:
-                logging.error(e)
-
-
-            Itineary_Serializer = ItinearyRouteSerializer(Itineary,many=True)
-            return Response(Itineary_Serializer.data)
-        else:
-            return Response("ID missing")
-
-    @api_view(['GET'])
     def getRoadVehicle(request,id):
         if id:
             roadVehicle = RoadVehicle.objects.all().filter(road_map=id)
