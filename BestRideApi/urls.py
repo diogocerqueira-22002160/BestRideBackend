@@ -29,7 +29,7 @@ urlpatterns = [
     path('translate/', views.TranslateAWS.translate),
 
     #Iteneary Urls
-    path('itineary/showItineary/<int:id>',routes_views.Routes.getItineary),
+
     path('itineray/showRoadVehicles/<int:id>',routes_views.Routes.getRoadVehicle),
     path('itineary/showRoadMap',routes_views.Routes.getRoadMap),
     path('itineary/showInterestPoints',routes_views.Routes.getPointsInterest),
