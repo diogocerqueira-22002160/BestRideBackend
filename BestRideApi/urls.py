@@ -98,6 +98,7 @@ urlpatterns = [
     path('postFKDriverEnterprise/', driver_views.ViewsDriver.postFkDrivertoEnterprise),
     path('getFKDriverEnterprise', driver_views.ViewsDriver.getFkDrivertoEnterprise),
 
+
     # Driver Enterprise Cognito Urls
     path('loginEnterprise/', driverEnterprise_views.DriverEnterpriseCognito.login),
     path('loginGoogleDriverEnterprise/', driverEnterprise_views.DriverEnterpriseCognito.loginGoogle),
