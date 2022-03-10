@@ -187,14 +187,18 @@ class DriverEnterpriseCognito:
             return JsonResponse(tutorial_serializer.data)
         return JsonResponse(tutorial_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @api_view(['POST'])
-    def cancelAccount(request):
+    @api_view(['DELETE'])
+    def cancelAccount(request, token, id):
         boto3.setup_default_session(region_name=env.str('REGION_NAME_DEFAULT'))
         client = boto3.client('cognito-idp')
         try:
             client.delete_user(
-                AccessToken = request.data['token']
+                AccessToken = token
             )
+
+            queryset = EmpresaDriver.objects.get(idEmpresaDriver=id)
+            queryset.delete()
+
             return Response("User eliminated !")
         except client.exceptions.UserNotFoundException:
             return Response("User Not Found", status=status.HTTP_400_BAD_REQUEST)
@@ -313,9 +317,3 @@ class DriverEnterprise:
         queryset = EmpresaDriver.objects.all().filter(email=email)
         serialzer_class = EmpresaDriverSerializer(queryset, many=True)
         return Response(serialzer_class.data)
-
-    @api_view(['GET'])
-    def delete(request,id):
-        queryset = EmpresaDriver.objects.get(idEmpresaDriver=id)
-        queryset.delete()
-        return Response("User eliminado")

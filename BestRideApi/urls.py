@@ -76,7 +76,7 @@ urlpatterns = [
     # Driver Cognito Urls
     path('loginDriver/', driver_views.CognitoDriver.login),
     path('loginGoogleDriver/', driver_views.CognitoDriver.loginGoogle),
-    path('cancelAccountDriver/', driver_views.CognitoDriver.cancelAccount),
+    path('deleteAccountDriver/<str:token>/<int:id>', driver_views.CognitoDriver.cancelAccount),
     path('createDriver/', driver_views.CognitoDriver.create_account),
     path('getCognitoDriver/<str:token>',driver_views.CognitoDriver.getUser),
     path('recoverDriver/',driver_views.CognitoDriver.recoverAccount),
@@ -91,7 +91,6 @@ urlpatterns = [
 
     # Driver RDS Urls
     path('getDriver/<str:email>', driver_views.ViewsDriver.getDriver),
-    path('deleteDriver/<int:id>',  driver_views.ViewsDriver.delete),
     path('postEmergencyContact/', driver_views.ViewsDriver.postEmergencycontact),
 
     #Driver/Enterprise FK Urls
@@ -102,7 +101,7 @@ urlpatterns = [
     # Driver Enterprise Cognito Urls
     path('loginEnterprise/', driverEnterprise_views.DriverEnterpriseCognito.login),
     path('loginGoogleDriverEnterprise/', driverEnterprise_views.DriverEnterpriseCognito.loginGoogle),
-    path('cancelAccountDriverEnterprise/', driverEnterprise_views.DriverEnterpriseCognito.cancelAccount),
+    path('deleteAccountDriverEnterprise/<str:token>/<int:id>', driverEnterprise_views.DriverEnterpriseCognito.cancelAccount),
     path('createDriverEnterprise/', driverEnterprise_views.DriverEnterpriseCognito.create_account),
     path('getCognitoDriverEnterprise/<str:token>',driverEnterprise_views.DriverEnterpriseCognito.getUser),
     path('recoverDriverEnterprise/',driverEnterprise_views.DriverEnterpriseCognito.recoverAccount),
@@ -118,5 +117,4 @@ urlpatterns = [
     # Driver RDS Cognito Urls
     path('getEmpresa/',  driverEnterprise_views.DriverEnterprise.getDriverEmpresa),
     path('getEmpresaId/<str:email>',  driverEnterprise_views.DriverEnterprise.getDriverEmpresa),
-    path('deleteEmpresa/<int:id>',  driverEnterprise_views.DriverEnterprise.delete),
 ]

@@ -341,14 +341,18 @@ class CognitoDriver():
             return JsonResponse(tutorial_serializer.data)
         return JsonResponse(tutorial_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @api_view(['POST'])
-    def cancelAccount(request):
+    @api_view(['Delete'])
+    def cancelAccount(request, token, id):
         boto3.setup_default_session(region_name=env.str('REGION_NAME_DEFAULT'))
         client = boto3.client('cognito-idp')
         try:
             client.delete_user(
-                AccessToken=request.data['token']
+                AccessToken=token
             )
+
+            queryset = Driver.objects.get(idDriver=id)
+            queryset.delete()
+
             return Response("User eliminated !")
         except client.exceptions.UserNotFoundException:
             return Response("User Not Found", status=status.HTTP_400_BAD_REQUEST)
@@ -415,6 +419,4 @@ class ViewsDriver():
 
     @api_view(['DELETE'])
     def delete(request,id):
-        queryset = Driver.objects.get(idDriver=id)
-        queryset.delete()
         return Response("Driver eliminado")
