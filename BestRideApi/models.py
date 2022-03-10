@@ -141,6 +141,7 @@ class Vehicle(models.Model):
     image = models.CharField(max_length=4000, blank=True, null=True)
     registration = models.CharField(max_length=255, blank=True)
     enterprise = models.ForeignKey(EmpresaDriver, models.DO_NOTHING, db_column='enterprise')
+    state = models.CharField(max_length=255, blank=True)
     arquivado = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
@@ -162,6 +163,7 @@ class PointInterest(models.Model):
     description = models.CharField(max_length=45, blank=True, null=True)
     location = models.GeometryField(blank=True, null=True)
     image = models.CharField(max_length=322, blank=True, null=True)
+    roadMap = models.ForeignKey(RoadMap, on_delete=models.CASCADE, related_name='roadMap', null=True, blank=True, db_column="roadMap_id")
 
     class Meta:
         db_table = 'Point_Interest'

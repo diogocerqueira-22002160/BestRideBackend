@@ -187,24 +187,31 @@ class CognitoDriver():
                 ],
             )
 
-            ##jsonToDB = {
-            ##    "email": request.data['email'],
-            ##     "image": request.data['image'],
-            ##    "specialNeedSupport": request.data['specialNeedSupport'],
-            ##    "languages": request.data['languages'],
-            ##    "availableHours": request.data['availableHours'],
-            ##   "courseTaken": request.data['courseTaken'],
-            ##    "emergencyContact": request.data['emergencyContact'],
-            ##    "typeGuide": request.data['typeGuide'],
-            ##    "about": request.data['about'],
-            ##     "vehiclesCanDrive": request.data['vehiclesCanDrive'],
-            ##    "video": request.data['video'],
-            ##    "startActivity": request.data['startActivity'],
-            ##}
+            jsonToDB = {
+                 "email": request.data['email'],
+                 "image": request.data['image'],
+                "specialNeedSupport": request.data['specialNeedSupport'],
+                "languages": request.data['languages'],
+                "availableHours": request.data['availableHours'],
+               "courseTaken": request.data['courseTaken'],
+                "emergencyContact": request.data['emergencyContact'],
+                "typeGuide": request.data['typeGuide'],
+                "about": request.data['about'],
+                 "vehiclesCanDrive": request.data['vehiclesCanDrive'],
+                "video": request.data['video'],
+                "startActivity": request.data['startActivity'],
+            }
 
-            ##respostaPostDriver = ViewsDriver.postDriver(jsonToDB)
+            driver_serializer = DriverSerializer(data=jsonToDB)
+            if driver_serializer.is_valid():
+                driver_serializer.save()
+                resposta = Response(driver_serializer.data, status=201)
+            else:
+                return Response(driver_serializer.errors, status=400)
 
-            return JsonResponse(response_sign_up)
+            respostaPostDriver = dict(resposta) | response_sign_up
+
+            return JsonResponse(respostaPostDriver)
 
         except client.exceptions.InvalidPasswordException:
             return Response("Invalid Password Format",status=status.HTTP_404_NOT_FOUND)
@@ -378,14 +385,6 @@ class CognitoDriver():
         return Response(response)
 
 class ViewsDriver():
-    @api_view(['POST'])
-    def postDriver(request):
-        driver_serializer = DriverSerializer(data=request.data)
-        if driver_serializer.is_valid():
-            driver_serializer.save()
-            return  Response(driver_serializer.data, status=201)
-        return Response(driver_serializer.errors, status=400)
-
     @api_view(['GET'])
     def getDriver(request, email):
         queryset = Driver.objects.all().filter(email=email)
