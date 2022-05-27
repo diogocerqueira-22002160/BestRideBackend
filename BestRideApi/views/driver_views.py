@@ -419,4 +419,17 @@ class ViewsDriver():
 
     @api_view(['DELETE'])
     def delete(request,id):
+        queryset = Driver.objects.get(id=id)
+        queryset.delete()
         return Response("Driver eliminado")
+
+
+    @api_view(['PUT'])
+    def updateDriverEnterprise(request, id):
+        tutorial = Driver.objects.get(id=id)
+        tutorial_data = JSONParser().parse(request)
+        tutorial_serializer = DriverSerializer(tutorial, data=tutorial_data)
+        if tutorial_serializer.is_valid():
+            tutorial_serializer.save()
+            return JsonResponse(tutorial_serializer.data)
+        return JsonResponse(tutorial_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -141,6 +141,7 @@ class Vehicle(models.Model):
     image = models.CharField(max_length=4000, blank=True, null=True)
     registration = models.CharField(max_length=255, blank=True)
     enterprise = models.ForeignKey(EmpresaDriver, models.DO_NOTHING, db_column='enterprise')
+    driver = models.ForeignKey(Driver, models.DO_NOTHING, db_column='driver', null=True)
     state = models.CharField(max_length=255, blank=True)
     arquivado = models.CharField(max_length=100, blank=True, null=True)
 

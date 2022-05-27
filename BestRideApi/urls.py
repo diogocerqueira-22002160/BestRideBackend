@@ -41,7 +41,7 @@ urlpatterns = [
     path('getRoadMapsById/<int:id>', routes_views.Routes.roadMapById),
     path('createRoute/', routes_views.Routes.postRoutes),
     path('deleteRoute/<int:id>', routes_views.Routes.delete),
-    path('updateRoadMap/<int:id>', routes_views.Routes.updateRoadMap),
+    path('saveDraft/<int:id>', routes_views.Routes.saveDraft),
 
     #Vehicle Urls
     path('getVehicle', routes_views.Routes.getVehicles),
@@ -50,6 +50,10 @@ urlpatterns = [
     path('getVehicleByEnterprise/<int:enterprise>', routes_views.Routes.getVehiclesEnterprise),
     path('getVehicleById/<int:id>', routes_views.Routes.getVehiclesId),
     path('updateVehicle/<int:id>', routes_views.Routes.updateVehicle),
+    path('updateDriverVehicle/<int:id>', routes_views.Routes.updateDriverVehicle),
+
+
+
 
     #Comments Urls
     path('getComments/<int:id>', comment_views.Comment.getComments),
@@ -117,4 +121,5 @@ urlpatterns = [
     # Driver RDS Cognito Urls
     path('getEmpresa/',  driverEnterprise_views.DriverEnterprise.getDriverEmpresa),
     path('getEmpresaId/<str:email>',  driverEnterprise_views.DriverEnterprise.getDriverEmpresa),
+    path('updateDriverEnterprise/<int:id>', driver_views.ViewsDriver.updateDriverEnterprise),
 ]

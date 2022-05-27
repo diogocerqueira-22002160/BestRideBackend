@@ -201,13 +201,23 @@ class Routes(APIView):
         queryset.delete()
         return Response("Roteiro eliminado")
 
+    @api_view(['PUT'])
+    def saveDraft(request, id):
+        tutorial = RoadMap.objects.get(id=id)
+        tutorial_data = JSONParser().parse(request)
+        tutorial_serializer = RoadMapSerializer(tutorial, data=tutorial_data)
+        if tutorial_serializer.is_valid():
+            tutorial_serializer.save()
+            return JsonResponse(tutorial_serializer.data)
+        return JsonResponse(tutorial_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @api_view(['PUT'])
-    def updateRoadMap(request, id):
-        RoadMap.objects.get(id=id).delete()
-        roadMap_serializer = RoadMapSerializer(data=request.data)
-        if roadMap_serializer.is_valid():
-            roadMap_serializer.save()
-            return Response(roadMap_serializer.data, status=201)
-        return Response(roadMap_serializer.errors, status=400)
+    def updateDriverVehicle(request, id):
+        tutorial = Vehicle.objects.get(id=id)
+        tutorial_data = JSONParser().parse(request)
+        tutorial_serializer = VehicleSerializer(tutorial, data=tutorial_data)
+        if tutorial_serializer.is_valid():
+            tutorial_serializer.save()
+            return JsonResponse(tutorial_serializer.data)
+        return JsonResponse(tutorial_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
