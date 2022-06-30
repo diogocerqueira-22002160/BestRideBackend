@@ -6,7 +6,6 @@ urlpatterns = [
     path('', views.api_root),
 
     #User Cognito Urls
-    path('users/', user_views.user_operations.as_view(),name='users'),
     path('login/',user_views.user_operations.login),
     path('getUser/<str:token>',user_views.user_operations.getUser),
     path('recoverUser/',user_views.user_operations.recoverAccount),
@@ -18,22 +17,14 @@ urlpatterns = [
     path('verifyAccount/',user_views.user_operations.confirmAccount),
     path('resend_code/',user_views.user_operations.resend_code),
     path('cancelAccount/',user_views.user_operations.cancelAccount),
-    path('users/<int:id>/', user_views.user_operations.as_view()),
-    path('socialLogin/google/', user_views.user_operations.loginGoogle),
-
-    #User RDS Urls
-    path('deleteUser/<int:id>', user_views.Users.delete),
-    path('getUserid/<str:email>/',user_views.Users.get),
 
     #Translate Url
     path('translate/', views.TranslateAWS.translate),
 
-    #Iteneary Urls
-
+    #Iteneary Url
     path('itineray/showRoadVehicles/<int:id>',routes_views.Routes.getRoadVehicle),
     path('itineary/showRoadMap',routes_views.Routes.getRoadMap),
     path('itineary/showInterestPoints',routes_views.Routes.getPointsInterest),
-    path('itineary/distance/',routes_views.Routes.distance),
 
     #RoadMaps/Roteiros Urls
     path('showRoadMapsCity/<str:city>',routes_views.Routes.roadMapByCity),
@@ -41,7 +32,6 @@ urlpatterns = [
     path('getRoadMapsById/<int:id>', routes_views.Routes.roadMapById),
     path('createRoute/', routes_views.Routes.postRoutes),
     path('deleteRoute/<int:id>', routes_views.Routes.delete),
-    path('saveDraft/<int:id>', routes_views.Routes.saveDraft),
 
     #Vehicle Urls
     path('getVehicle', routes_views.Routes.getVehicles),
@@ -50,10 +40,6 @@ urlpatterns = [
     path('getVehicleByEnterprise/<int:enterprise>', routes_views.Routes.getVehiclesEnterprise),
     path('getVehicleById/<int:id>', routes_views.Routes.getVehiclesId),
     path('updateVehicle/<int:id>', routes_views.Routes.updateVehicle),
-    path('updateDriverVehicle/<int:id>', routes_views.Routes.updateDriverVehicle),
-
-
-
 
     #Comments Urls
     path('getComments/<int:id>', comment_views.Comment.getComments),
@@ -61,8 +47,6 @@ urlpatterns = [
     path('getAverageComments/<int:id>', comment_views.Comment.getAverageComments),
 
     #Travel Urls
-    path('travelsSchedule/',travel_views.TravelScheduleList.as_view()),
-    path('travelsSchedule/<int:pk>/',travel_views.TravelScheduleGet.get),
     path('travels/<int:turist_id>',travel_views.Travels.getTurista),
     path('getTravels/',travel_views.Travels.get),
     path('createTravel/',travel_views.Travels.post),
@@ -94,13 +78,10 @@ urlpatterns = [
     path('cancelAccountDriver/',driver_views.CognitoDriver.cancelAccount),
 
     # Driver RDS Urls
-    path('getDriver/<str:email>', driver_views.ViewsDriver.getDriver),
     path('postEmergencyContact/', driver_views.ViewsDriver.postEmergencycontact),
 
     #Driver/Enterprise FK Urls
     path('postFKDriverEnterprise/', driver_views.ViewsDriver.postFkDrivertoEnterprise),
-    path('getFKDriverEnterprise', driver_views.ViewsDriver.getFkDrivertoEnterprise),
-
 
     # Driver Enterprise Cognito Urls
     path('loginEnterprise/', driverEnterprise_views.DriverEnterpriseCognito.login),
@@ -118,8 +99,4 @@ urlpatterns = [
     path('resend_codeDriverEnterprise/',driverEnterprise_views.DriverEnterpriseCognito.resend_code),
     path('cancelAccountDriverEnterprise/',driverEnterprise_views.DriverEnterpriseCognito.cancelAccount),
 
-    # Driver RDS Cognito Urls
-    path('getEmpresa/',  driverEnterprise_views.DriverEnterprise.getDriverEmpresa),
-    path('getEmpresaId/<str:email>',  driverEnterprise_views.DriverEnterprise.getDriverEmpresa),
-    path('updateDriverEnterprise/<int:id>', driver_views.ViewsDriver.updateDriverEnterprise),
 ]
